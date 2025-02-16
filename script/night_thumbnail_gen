@@ -1,0 +1,12 @@
+#!/bin/bash
+
+IMAGE_SRC=$1
+DIMENSION=250
+CANVAS=$(($DIMENSION * 2))
+
+magick $IMAGE_SRC \
+    -resize "$DIMENSION^>" \
+    -gravity center \
+    -crop "$DIMENSION"x"$DIMENSION"+0+0 \
+    -strip \
+    ../static/night/thumbnail/prev_$(basename $IMAGE_SRC)

@@ -1,0 +1,7 @@
+app/hidden/*
+templates/hidden/*
+
+templates/test.html
+
+*.pyc
+.env

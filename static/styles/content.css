@@ -1,0 +1,158 @@
+@font-face {
+    font-family: "Inter";
+    src: url("../fonts/Inter-VariableFont_opsz\,wght.ttf");
+}
+
+body {
+    font-family: "Inter";
+    background-color: #121730;
+    margin: 0px;
+}
+
+.page {
+    position: relative;
+    min-height: 100dvh;
+}
+
+.content-wrap {
+    padding-bottom: 4rem;
+}
+
+.front-page {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #7b7afc;
+    
+    h1 { font-size: 85px; line-height: 20%; margin-top: 0px; }
+    h2 { font-size: 25px; }
+    a { color: #7b7afc }
+}
+
+/* Standard page headers and title */
+.navigation {
+    padding-top: 10px;
+    padding-left: 10px;
+
+    font-size: 18px;
+    word-spacing: 0.35em;
+    color: #7b7afc;
+
+    a { color: #7b7afc }
+}
+
+.main-title {
+    margin: auto;
+    text-align: left;
+    color: #7b7afc;
+    max-width: 850px;
+}
+
+.main-title h1 {
+    font-size: 70px;
+    line-height: 20%;
+    padding-top: 0px;
+    padding-left: 30px;
+}
+
+.main-title h2 {
+    font-size: 25px;
+    padding-left: 30px;
+}
+
+
+/* Standard text page */
+.content {
+    margin: auto;
+    max-width: 850px;
+    text-align: left;
+    color: #303030;
+    padding: 0px;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+.content .text {
+    padding: 30px;
+}
+
+.content p {
+    font-size: 18px;
+}
+
+.content h1 {
+    font-size: 35px;
+    margin-top: 0px;
+}
+
+.content h1:after {
+    content: "";
+    display: block;
+    border: 1px solid;
+}
+
+.content h2 {
+    font-size: 30px;
+}
+
+/* 3 column photo grid */
+.photo-grid {
+    margin: auto;
+    max-width: 850px;
+    padding-left: 30px;
+    text-align: center;
+
+    display: grid;
+    row-gap: 20px;
+    grid-template-columns: repeat(3, 33%);
+}
+
+@media only screen and (max-width: 950px) {
+    .photo-grid {
+        margin: auto;
+        max-width: 850px;
+        padding-left: 30px;
+        text-align: center;
+
+        display: grid;
+        row-gap: 20px;
+        grid-template-columns: repeat(2, 40%);
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .photo-grid {
+        margin: auto;
+        max-width: 850px;
+        padding-left: 30px;
+        text-align: center;
+        row-gap: 20px;
+
+        display: grid;
+        grid-template-columns: repeat(1, 90%);
+    }
+}
+
+/* Social media links */
+.main-footer {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 15px;
+
+    width: 100%;
+
+    text-align: center;
+
+    img {
+        height: 25px;
+        vertical-align: middle;
+    }
+
+    a {
+        font-size: 15px;
+        color: #eeeeee;
+        vertical-align: middle;
+    }
+}

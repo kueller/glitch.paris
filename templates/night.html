@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/content.css') }}"/>
+
+        <title>Paris by night</title>
+    </head>
+
+    <body>
+        <div class="page">
+            <div class="content-wrap">
+                <div class="navigation">
+                    <a href="/">home</a>
+                    night
+                </div>
+
+                <div class="main-title">
+                    <h1>Paris by night</h1>
+                    <h2>Photos of the city after-hours.</h2>
+                </div>
+
+                <div class="photo-grid">
+                    {% for image in images %}
+                        <div>
+                            <a href="{{ image.original }}" target="_blank">
+                                <img 
+                                    src="{{ image.thumbnail }}"
+                                    title="{{ image.title }}"
+                                    alt="{{ image.alt }}"
+                                >
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            {% include "footer.html" %}
+
+            </div>
+        </div>
+    </body>
+</html>
