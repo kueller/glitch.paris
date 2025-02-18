@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, redirect, render_template
 
 from app.night import generate_image_names
 
@@ -8,6 +8,11 @@ home = Blueprint("home", __name__)
 @home.route("/")
 def hello():
     return render_template("home.html")
+
+
+@home.route("/", subdomain="kue")
+def bsky():
+    return redirect("https://bsky.app/profile/kue.glitch.paris")
 
 
 @home.route("/night")
