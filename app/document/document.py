@@ -3,7 +3,7 @@ from flask import Blueprint, send_file, url_for
 import app
 
 
-document = Blueprint("document", __name__)
+document = Blueprint("documents", __name__)
 
 ALLOWED_DOCUMENTS = ("versement_mobilites.pdf",)
 

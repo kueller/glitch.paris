@@ -17,7 +17,7 @@ from app.home import home
 from app.document.document import document
 
 app.register_blueprint(home)
-app.register_blueprint(document, url_prefix="/document")
+app.register_blueprint(document, url_prefix="/documents")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
