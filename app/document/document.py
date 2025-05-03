@@ -12,5 +12,4 @@ ALLOWED_DOCUMENTS = ("versement_mobilites.pdf",)
 def document_get(filename: str):
     if filename not in ALLOWED_DOCUMENTS:
         return "", 404
-    url = url_for("static", filename=f"public/{filename}")
-    return send_file(f"{app.config.ROOT_DIRECTORY}/{url}")
+    return send_file(f"{app.config.ROOT_DIRECTORY}/app/document/{filename}")
