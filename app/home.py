@@ -10,12 +10,12 @@ def hello():
     return render_template("home.html")
 
 
-@home.route("/", subdomain="kue")
-def bsky():
-    return redirect("https://bsky.app/profile/kue.glitch.paris")
-
-
 @home.route("/night")
 def night():
     images = generate_image_names()
     return render_template("night.html", images=images)
+
+
+@home.route("/etc")
+def etc():
+    return render_template("etc.html")

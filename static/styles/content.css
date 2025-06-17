@@ -26,7 +26,7 @@ body {
     color: #7b7afc;
     
     h1 { font-size: 85px; line-height: 20%; margin-top: 0px; }
-    h2 { font-size: 25px; }
+    h2 { font-size: 25px; word-spacing: 0.25em; }
     a { color: #7b7afc }
 }
 
@@ -51,9 +51,10 @@ body {
 
 .main-title h1 {
     font-size: 70px;
-    line-height: 20%;
     padding-top: 0px;
     padding-left: 30px;
+    margin-bottom: 0px;
+    line-height: 90%;
 }
 
 .main-title h2 {
@@ -79,11 +80,11 @@ body {
 }
 
 .content p {
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .content h1 {
-    font-size: 35px;
+    font-size: 33px;
     margin-top: 0px;
 }
 
@@ -94,7 +95,7 @@ body {
 }
 
 .content h2 {
-    font-size: 30px;
+    font-size: 28px;
 }
 
 /* 3 column photo grid */
@@ -132,6 +133,14 @@ body {
 
         display: grid;
         grid-template-columns: repeat(1, 90%);
+    }
+    .main-title {
+        h1 { font-size: 7vmax; }
+        h2 { font-size: 2.5vmax; }
+    }
+    .front-page {
+        h1 { font-size: 17vw; }
+        h2 { font-size: 2.5vmax; }
     }
 }
 

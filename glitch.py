@@ -14,9 +14,11 @@ app.jinja_env.lstrip_blocks = True
 app.secret_key = APP_SECRET_KEY
 
 from app.home import home
+from app.bsky import bsky
 from app.document.document import document
 
 app.register_blueprint(home)
+app.register_blueprint(bsky, subdomain="kue")
 app.register_blueprint(document, url_prefix="/documents")
 
 if __name__ == "__main__":

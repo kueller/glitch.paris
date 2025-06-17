@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Paris by night</title>
+
+        <meta charset="utf-8">
+        <meta property="og:title" content="Etcetera"/>
+        <meta property="og:description" content="For all the rest"/>
+        <meta property="og:url" content="https://glitch.paris"/>
+        <meta name="viewport" content="width=device-width initial-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/content.css') }}"/>
+    </head>
+
+    <body>
+        <div class="page">
+            <div class="content-wrap">
+                <div class="navigation">
+                    <a href="/">home</a>
+                    <a href="/night">night</a>
+                    etc
+                </div>
+
+                <div class="main-title">
+                    <h1>Etcetera</h1>
+                    <h2>For all the rest</h2>
+                </div>
+
+                <div class="content">
+                    <div class="text">
+                        <h2>Versement Mobilités English Translation (2025)</h2>
+                        <p>
+                            Full text: 
+                            <a href="./documents/versement_mobilites.pdf">PDF</a> <br>
+                            <small>
+                                <i>Note: This translation was done on March 2025 and will not reflect any changes that have since occured.</i>
+                            </small>
+                        </p>
+                        <p>
+                            This payroll tax is a foundational source of funding for public transit in France.
+                            Relevant legal texts from <a href="https://entreprendre.service-public.fr/vosdroits/F31031">the administration</a>
+                            have been translated here to be a reference for any English-speaking person that may be 
+                            interested in transit funding. The document includes notes and summaries
+                            so it can be understood by those with little to no knowledge in the French system.
+                        </p>
+                        <p>
+                            This translation was cited in Seung Lee's article <i>How France Saved its Public Transit from Catastrophe</i>,
+                            readable on <a href="https://www.substack-bahn.net/p/how-france-saved-its-public-transit">S(ubstack)-Bahn</a>.
+                        </p>
+
+                        <h2>Source</h2>
+                        <p>
+                            This website was created with Flask. The source code can be found here:<br>
+                            <a href="https://github.com/kueller/glitch.paris">https://github.com/kueller/glitch.paris</a>
+                        </p>
+
+                    </div>
+                </div>
+
+                {% include "footer.html" %}
+
+            </div>
+        </div>
+    </body>
+</html>
