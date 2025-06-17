@@ -3,6 +3,7 @@ import sys
 import logging
 
 from dotenv import load_dotenv
+
 load_dotenv(f"{os.path.dirname(__file__)}/.env")
 
 logging.basicConfig(stream=sys.stderr)
@@ -12,4 +13,3 @@ from glitch import app
 
 if __name__ == "__main__":
     app.run()
-
