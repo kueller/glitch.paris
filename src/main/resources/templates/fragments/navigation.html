@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+
+<body>
+    <div th:fragment="navigation" class="navigation">
+        <th:block th:each="page : ${toplevelpages}">
+            <span th:if="${page.name} == ${name}" th:text="${page.name}"></span>
+            <a th:unless="${page.name} == ${name}" th:href="${page.path}" th:text="${page.name}"></a>
+        </th:block>
+    </div>
+</body>
+
+</html>

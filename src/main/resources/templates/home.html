@@ -1,0 +1,34 @@
+<!-- The source for this website can be found here https://github.com/kueller/glitch.paris -->
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+    <head>
+        <title>glitch</title>
+
+        <meta charset="utf-8">
+        <meta property="og:title" content="glitch.paris"/>
+        <meta property="og:url" content="https://glitch.paris"/>
+        <meta name="viewport" content="width=device-width initial-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/styles/content.css}"/>
+
+    </head>
+
+    <body>
+        <div class="page">
+            <div class="content-wrap">
+
+                <div class="front-page">
+                    <h1>glitch.paris</h1>
+                    <h2>
+                        <th:block th:each="page : ${toplevelpages}">
+                            <a th:if="${page.name} != ${name}" th:href="${page.path}" th:text="${page.name}"></a>
+                        </th:block>
+                    </h2>
+                </div>
+
+                <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+            </div>
+        </div>
+    </body>
+</html>

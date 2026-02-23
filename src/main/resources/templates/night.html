@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+    <head>
+        <title>Paris by night</title>
+
+        <meta charset="utf-8">
+        <meta property="og:title" content="Paris by night"/>
+        <meta property="og:description" content="Photos of the city after-hours"/>
+        <meta property="of:image" th:attr="content=@{/night/thumbnail/prev_face.jpg}"/>
+        <meta property="og:url" content="https://glitch.paris"/>
+        <meta name="viewport" content="width=device-width initial-scale=1"/>
+
+        <link rel="stylesheet" type="text/css" th:href="@{/styles/content.css}"/>
+    </head>
+
+    <body>
+        <div class="page">
+            <div class="content-wrap">
+                <div th:replace="~{fragments/navigation :: navigation}"></div>
+
+                <div class="main-title">
+                    <h1>Paris by night</h1>
+                    <h2>Photos of the city after-hours</h2>
+                </div>
+
+                <div class="photo-grid">
+                    <div th:each="image : ${images}">
+                        <a th:href="@{/night/original/{filename}(filename=${image.filename})}" target="_blank">
+                            <img 
+                                th:src="@{/night/thumbnail/prev_{filename}(filename=${image.filename})}"
+                                th:attr="title=${image.title}"
+                                th:attrappend="alt=${image.alt}"
+                            >
+                        </a>
+                    </div>
+                </div>
+
+                <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+            </div>
+        </div>
+    </body>
+</html>
