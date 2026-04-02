@@ -1,4 +1,4 @@
-package com.glitch.main.document;
+package com.glitch.main.rest.document;
 
 import java.util.List;
 

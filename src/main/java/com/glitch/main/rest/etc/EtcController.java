@@ -1,4 +1,4 @@
-package com.glitch.main.etc;
+package com.glitch.main.rest.etc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
