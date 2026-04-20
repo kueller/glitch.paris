@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.glitch</groupId>
 	<artifactId>glitch</artifactId>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 	<name>glitch</name>
 	<description>glitch.paris main page</description>
 	<url/>

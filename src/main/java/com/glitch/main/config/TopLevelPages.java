@@ -2,6 +2,7 @@ package com.glitch.main.config;
 
 public enum TopLevelPages {
     HOME("home", "/"),
+    KNOWLEDGE("knowledge", "https://knowledge.glitch.paris"),
     NIGHT("night", "/night"),
     ETC("etc", "/etc");
 
