@@ -9,14 +9,14 @@
         <meta property="og:url" content="https://glitch.paris"/>
         <meta name="viewport" content="width=device-width initial-scale=1"/>
 
-        <link rel="stylesheet" type="text/css" th:href="@{/styles/content.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? './static/style/glitch.min.css' : './static/style/glitch.css') }"/>
     </head>
 
     <body>
         <div class="page">
-            <div class="content-wrap">
-                <div th:replace="~{fragments/navigation :: navigation}"></div>
+            <div th:replace="~{fragments/navigation :: navigation}"></div>
 
+            <div class="content-wrap">
                 <div class="main-title">
                     <h1>Etcetera</h1>
                     <h2>For all the rest</h2>
@@ -27,7 +27,7 @@
                         <h2>Versement Mobilités English Translation (2025)</h2>
                         <p>
                             Full text: 
-                            <a href="./documents/versement_mobilites.pdf">PDF</a> <br>
+                            <a target="_blank" href="./documents/versement_mobilites.pdf">PDF</a> <br>
                             <small>
                                 <i>Note: This translation was done on March 2025 and will not reflect any changes that have since occured.</i>
                             </small>
@@ -44,9 +44,38 @@
                             readable on <a href="https://www.substack-bahn.net/p/how-france-saved-its-public-transit">S(ubstack)-Bahn</a>.
                         </p>
 
+                        <h2>The Knowledge (Métro de Paris)</h2>
+                        <p>
+                            <b>Play: <a href="https://knowledge.glitch.paris">https://knowledge.glitch.paris</a></b><br>
+                            Source code: <a href="https://github.com/kueller/the-knowledge-metro/">https://github.com/kueller/the-knowledge-metro/</a>
+                        </p>
+
+                        <p>
+                            The Knowledge is a little browser memory game I made and connected to this website. The goal is the same as the
+                            <a href="https://youtu.be/u7gp8KBP7ak?si=ty9N4c-9pTdj8ny8">London taxi driver course</a> that I got
+                            the name from: given two random metro stations you must find a valid route including which
+                            lines to take, which directions to take them, and any transfers along the way.
+                        </p>
+
+                        <p>
+                            I had the idea <a href="https://x.com/_kueller/status/1583109385303097344">for some time</a> to memorize the entire
+                            metro network just to flex that I could navigate without apps or maps. I eventually did memorize it when playing
+                            the excellent <a href="https://memory.pour.paris/">memory.pour.paris</a> and it also pushed me to actually make my
+                            own game. 
+                        </p>
+
+                        <p>
+                            And do check out some other Paris metro browser games I enjoy: 
+                            <ul>
+                            <li><a href="https://memory.pour.paris/">memory.pour.paris</a></li>
+                            <li><a href="https://parismetrosimulator.appspot.com/Metro.jsp?gwt-voices=html5">Paris Metro Simulator</a></li>
+                            <li><a href="https://metrodoku.fr/">métrodoku</a></li>
+                            </ul>
+                        </p>
+
                         <h2>Source</h2>
                         <p>
-                            This website is created with Spring Boot. The source code can be found here:<br>
+                            This website is created with <a href="https://www.http4k.org/">http4k</a>. The source code can be found here:<br>
                             <a href="https://github.com/kueller/glitch.paris">https://github.com/kueller/glitch.paris</a>
                         </p>
                         <p>
@@ -55,10 +84,9 @@
                         </p>
                     </div>
                 </div>
-
-                <footer th:replace="~{fragments/footer :: footer}"></footer>
-
             </div>
+
+            <footer th:replace="~{fragments/footer :: footer}"></footer>
         </div>
     </body>
 </html>

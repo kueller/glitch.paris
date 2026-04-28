@@ -3,9 +3,11 @@
 
 <body>
     <div th:fragment="navigation" class="navigation">
-        <th:block th:each="page : ${toplevelpages}">
-            <span th:if="${page.name} == ${name}" th:text="${page.name}"></span>
-            <a th:unless="${page.name} == ${name}" th:href="${page.path}" th:text="${page.name}"></a>
+        <th:block th:each="page : ${model.topLevelPages}">
+        <div class="navigation-opt">
+            <span th:if="${page.pageName} == ${model.name}" th:text="${page.pageName}"></span>
+            <a th:unless="${page.pageName} == ${model.name}" th:href="${page.pagePath}" th:text="${page.pageName}"></a>
+        </div>
         </th:block>
     </div>
 </body>

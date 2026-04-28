@@ -9,26 +9,31 @@
         <meta property="og:url" content="https://glitch.paris"/>
         <meta name="viewport" content="width=device-width initial-scale=1"/>
 
-        <link rel="stylesheet" type="text/css" th:href="@{/styles/content.css}"/>
-
+        <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? './static/style/glitch.min.css' : './static/style/glitch.css') }"/>
     </head>
 
     <body>
         <div class="page">
-            <div class="content-wrap">
 
-                <div class="front-page">
-                    <h1>glitch.paris</h1>
-                    <h2>
-                        <th:block th:each="page : ${toplevelpages}">
-                            <a th:if="${page.name} != ${name}" th:href="${page.path}" th:text="${page.name}"></a>
-                        </th:block>
-                    </h2>
+            <div class="buffer"></div>
+        
+            <div class="front-page">
+                <div class="front-page-title">
+                    <div class="page-title">
+                        <h1>glitch.paris</h1>
+                    </div>
+                    <div class="pages-links">
+                        <h2>
+                            <th:block th:each="page : ${model.topLevelPages}">
+                                <a th:if="${page.pageName} != ${model.name}" th:href="${page.pagePath}" th:text="${page.pageName}"></a>
+                            </th:block>
+                        </h2>
+                    </div>
                 </div>
-
-                <footer th:replace="~{fragments/footer :: footer}"></footer>
-
             </div>
+        
+            <footer th:replace="~{fragments/footer :: footer}"></footer>
+
         </div>
     </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+    <head>
+        <title>glitch.paris</title>
+        <style>
+            body {
+                background-color: #121730;
+                padding: 0px 20px 115px 20px;
+                font-family: sans-serif;
+                font-size: 1.2rem;
+                color: #7b7afc;
+
+                h1 { margin-bottom: 0px; }
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1 th:text="${model.status} + ' ' + ${model.description}"></h1>
+        <p>
+            <span>Issue on requested URL:</span>
+            <b><span th:text="${model.path}"></span></b>
+            <th:block th:if="${model.details} != null"><br><span th:text="|↪ ${model.details}|"></span></th:block>
+        </p> 
+    </body>
+</html>
