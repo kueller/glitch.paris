@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+    <body>
+    <th:block th:fragment="meta(title, description, url, image)">
+        <meta name="title" th:content="${title}" />
+        <meta name="description" th:content="${description}" />
+        <meta name="viewport" content="width=device-width initial-scale=1"/>
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" th:content="${url}" />
+        <meta property="og:title" th:content="${title}" />
+        <meta property="og:description" th:content="${description}" />
+        <meta property="og:image" th:content="${image}" />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" th:content="${url}" />
+        <meta property="twitter:title" th:content="${title}" />
+        <meta property="twitter:description" th:content="${description}" />
+        <meta property="twitter:image" th:content="${image}" />
+    </th:block>
+    </body>
+</html>

@@ -30,6 +30,7 @@ val errorPageFilter: Filter = { next: HttpHandler ->
             }
         } catch (e: Exception) {
             val error: String = e.toString().substringAfterLast('.')
+            println(e)
             HTMLPage()
                 .from(errorProcessor(500, "Internal Server Error", error))
                 .apply {
