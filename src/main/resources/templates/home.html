@@ -3,7 +3,7 @@
 <html xmlns:th="https;//thymeleaf.org">
     <head>
         <title>glitch</title>
-        <meta th:replace="fragments/meta :: meta (title='glitch', description='sans conséquence', url='https://glitch.paris/', image=@{./static/img/meta.jpg})">
+        <meta th:replace="fragments/meta :: meta (title='glitch', description='sans conséquence', url='/', image='/static/img/meta.jpg')">
         <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? './static/style/glitch.min.css' : './static/style/glitch.css') }"/>
     </head>
 

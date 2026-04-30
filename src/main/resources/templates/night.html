@@ -2,7 +2,7 @@
 <html xmlns:th="https;//thymeleaf.org">
     <head>
         <title>Paris by night</title>
-        <meta th:replace="fragments/meta :: meta (title='Paris by night', description='Photos of the city after-hours', url='https://glitch.paris/night', image=@{./static/img/night_meta.jpg})">
+        <meta th:replace="fragments/meta :: meta (title='Paris by night', description='Photos of the city after-hours', url='/night', image='/static/img/night_meta.jpg')">
         <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? './static/style/glitch.min.css' : './static/style/glitch.css') }"/>
         <script type="module" th:src="@{ (${model.useMins} ? './static/js/dist/photo.min.js' : './static/js/photo.js') }"></script>
     </head>

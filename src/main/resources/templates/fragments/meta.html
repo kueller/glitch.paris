@@ -7,16 +7,16 @@
         <meta name="viewport" content="width=device-width initial-scale=1"/>
 
         <meta property="og:type" content="website" />
-        <meta property="og:url" th:content="${url}" />
+        <meta property="og:url" th:content="${'https://glitch.paris' + url}" />
         <meta property="og:title" th:content="${title}" />
         <meta property="og:description" th:content="${description}" />
-        <meta property="og:image" th:content="${image}" />
+        <meta property="og:image" th:content="${'https://glitch.paris' + image}" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" th:content="${url}" />
+        <meta property="twitter:url" th:content="${'https://glitch.paris' + url}" />
         <meta property="twitter:title" th:content="${title}" />
         <meta property="twitter:description" th:content="${description}" />
-        <meta property="twitter:image" th:content="${image}" />
+        <meta property="twitter:image" th:content="${'https://glitch.paris' + image}" />
     </th:block>
     </body>
 </html>
