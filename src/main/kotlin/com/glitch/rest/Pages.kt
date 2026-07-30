@@ -5,9 +5,15 @@ import org.http4k.core.Request
 
 data class NightModel(val images: List<NightImage>) : BasicViewModel()
 
+data class LoginRedirectModel(val returnUri: String) : BasicViewModel()
+
 val hello: HTMLPrepare = { request: Request -> BasicViewModel() }
 
 val night: HTMLPrepare = { request: Request ->
     val images = NightImage.getAll()
     NightModel(images)
+}
+
+val login: HTMLPrepare = {request: Request ->
+    LoginRedirectModel(request.query("return") ?: "")
 }

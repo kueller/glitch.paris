@@ -3,7 +3,7 @@
     <head>
         <title>Etcetera...</title>
         <meta th:replace="fragments/meta :: meta (title='Etcetera…', description='For all the rest.', url='/etc', image='/static/img/meta.jpg')">
-        <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? './static/style/glitch.min.css' : './static/style/glitch.css') }"/>
+        <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? '~/static/style/glitch.min.css' : '~/static/style/glitch.css') }"/>
     </head>
 
     <body>

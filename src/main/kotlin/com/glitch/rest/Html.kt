@@ -8,6 +8,7 @@ import org.http4k.core.*
 import org.http4k.template.ThymeleafTemplates
 import org.http4k.template.ViewModel
 import org.http4k.template.viewModel
+import kotlin.io.path.Path
 import kotlin.io.path.pathString
 
 
@@ -140,6 +141,23 @@ class HTMLMainPage(val page: TopLevelPage) : HTMLPage() {
         val viewModel: BasicViewModel = this.prepare(request)
         viewModel.templatePath = this.page.pagePath
         viewModel.name = this.page.pageName
+
+        return viewModel;
+    }
+}
+
+
+class HTMLSubPage(val templateName: String? = null): HTMLPage() {
+    override fun generateViewModel(request: Request): BasicViewModel {
+        val requestPath = Path(request.uri.path)
+
+        val viewModel: BasicViewModel = this.prepare(request)
+
+        if (this.templateName.isNullOrBlank()) {
+            viewModel.templatePath = requestPath.pathString
+        } else {
+            viewModel.templatePath = requestPath.parent.concat(this.templateName).pathString
+        }
 
         return viewModel;
     }

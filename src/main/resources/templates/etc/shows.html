@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+<head>
+    <title>Manage</title>
+    <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? '~/static/style/glitch.min.css' : '~/static/style/glitch.css') }"/>
+</head>
+
+<body>
+<div class="page">
+    <div th:replace="~{fragments/navigation :: navigation}"></div>
+
+    <div class="content-wrap">
+        <h2>WIP</h2>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

@@ -3,8 +3,8 @@
     <head>
         <title>Paris by night</title>
         <meta th:replace="fragments/meta :: meta (title='Paris by night', description='Photos of the city after-hours', url='/night', image='/static/img/night_meta.jpg')">
-        <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? './static/style/glitch.min.css' : './static/style/glitch.css') }"/>
-        <script type="module" th:src="@{ (${model.useMins} ? './static/js/dist/photo.min.js' : './static/js/photo.js') }"></script>
+        <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? '~/static/style/glitch.min.css' : '~/static/style/glitch.css') }"/>
+        <script type="module" th:src="@{ (${model.useMins} ? '~/static/js/dist/photo.min.js' : '~/static/js/photo.js') }"></script>
     </head>
 
     <body>
@@ -21,7 +21,7 @@
                     <div class="photo-item" th:each="image : ${model.images}">
                         <a class="photo-link" th:href="@{./static/night/original/{filename}(filename=${image.filename})}" target="_blank">
                             <img 
-                                th:src="@{./static/night/thumbnail/prev_{filename}(filename=${image.filename})}"
+                                th:src="@{~/static/night/thumbnail/prev_{filename}(filename=${image.filename})}"
                                 th:attr="title=${image.title}"
                                 th:attrappend="alt=${image.altText}"
                             >

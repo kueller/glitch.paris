@@ -11,6 +11,7 @@ abstract class AppConfig(
     open val serverPort: Int = System.getenv("SERVER_PORT")?.toInt() ?: 5000,
     open val externPath: Path = System.getenv("EXTERN_PATH")?.let { Path(it) } ?: error("EXTERN_PATH required."),
     open val projectResources: Path = System.getenv("PROJECT_RESOURCES_PATH")?.let { Path(it) } ?: Path("."),
+    open val jwtSecret: String = System.getenv("JWT_SECRET") ?: "secret",
     open val useMins: Boolean = System.getenv("USE_MINS")?.toBoolean() ?: false,
     open val dbUri: String = System.getenv("DATABASE_URI") ?: "",
     open val dbUser: String = System.getenv("DATABASE_USER") ?: "",

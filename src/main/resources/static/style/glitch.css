@@ -39,6 +39,7 @@
     --color-bg: #121730;
     --color-bg-light: #2e3a80;
     --color-title: #7b7afc;
+    --color-title-dark: #5b5bbc;
     --color-title-shadow-75: #a5a5fcbf;
     --color-title-shadow-50: #a5a5fc80;
     --color-foot-shadow-75: #eeeeeebf;
@@ -47,6 +48,7 @@
     --color-red: #e81d2b;
 
     --content-max: 850px;
+    --content-max-half: 425px;
     --front-page-max: 500px;
 
     --footer-min-height: 75px;
@@ -72,6 +74,7 @@
 
     --font-size-page-small: 1.000rem;
     --font-size-page-std:   1.125rem;
+    --font-size-page-big:   1.300rem;
     
     --font-size-page-h1-small: 1.750rem;
     --font-size-page-h1-std:   2.065rem;
@@ -187,7 +190,7 @@ body {
 }
 
 .content-wrap {
-    margin: auto;
+    margin: 0 auto auto auto;
 }
 
 .main-title {
@@ -219,10 +222,23 @@ body {
     background-color: var(--color-white);
 }
 
-.content .text {
-    color: var(--color-text);
+.transparent-content {
+    margin: 0px;
+    padding: 30px;
+    max-width: 100%;
+}
+
+.text {
     text-align: left;
     line-height: 1.6;
+}
+
+.content .text {
+    color: var(--color-text);
+}
+
+.transparent-content .text {
+    color: var(--color-title);
 }
 
 .text h1 {
@@ -238,6 +254,91 @@ body {
 
 .text ul {
     list-style-type: "⬦ ";
+}
+
+.text input {
+    padding: 4px 3px;
+    background-color: var(--color-white);
+}
+
+.text input:focus {
+    outline: 1px solid var(--color-title);
+    border-radius: 1px;
+}
+
+.text .textbox {
+    input {
+        margin: 5px 0;
+    }
+}
+
+.text .big-textbox {
+    input {
+        margin: 10px 0;
+    }
+}
+
+.text textarea {
+    background-color: var(--color-white);
+    resize: none;
+    padding: 4px 3px;
+}
+
+.text textarea:focus {
+    outline: 1px solid var(--color-title);
+    border-radius: 1px;
+}
+
+.text .readonly-text {
+    background-color: var(--color-white);
+    resize: none;
+    cursor: text;
+    caret-color: transparent;
+    outline: none;
+}
+
+.text input[type="button"], input[type="reset"], input[type="submit"] {
+    margin: 4px 3px;
+    padding: 7px;
+    border-radius: 4px;
+    background-color: var(--color-title);
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    transition-duration: 0.3s;
+}
+
+.text input[type="button"]:hover,
+      input[type="reset"]:hover,
+      input[type="submit"]:hover {
+    background-color: var(--color-title-dark);
+}
+
+.text select {
+    min-width: 200px;
+}
+
+.text .selectbox {
+    background-color: var(--color-white);
+}
+
+.dynamic-form-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 200px;
+
+    input {
+        display: inline-flex;
+    }
+
+    input[type="button"] {
+        height: 29px;
+        padding: 4px 5px;
+        margin: 5px 0;
+    }
 }
 
 .overlay {
@@ -287,6 +388,18 @@ body {
 
 .close:hover {
     background-color: var(--color-red); ;
+}
+
+.centerbox-column {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.centerbox-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
 }
 
 /* 3 column photo grid */
@@ -394,7 +507,22 @@ body {
     .text h1 { font-size: var(--font-size-page-h1-small); }
     .text h2 { font-size: var(--font-size-page-h2-small); }
 
+    .text textarea { width: 50vw; }
+    .text select { max-width: 50vw; }
+
     .content { border-radius: 0px; }
+    .transparent-content { border-radius: 0px; }
+
+    .textbox label { font-size: var(--font-size-page-small); }
+    .textbox input { min-width: 50vw; }
+
+    .big-textbox label { font-size: var(--font-size-page-std); }
+    .big-textbox input { min-width: 50vw; }
+
+    .readonly-text { width: 50vw; }
+    .selectbox { width: 50vw; }
+
+    .dynamic-form-row { width: 50vw; }
 
     .main-title {
         h1 { font-size: var(--font-size-page-title-big-small); }
@@ -428,10 +556,25 @@ body {
     .content-wrap { max-width: var(--content-max); }
 
     .content { border-radius: 10px; }
+    .transparent-content { border-radius: 10px; }
 
     .text p { font-size: var(--font-size-page-std); }
     .text h1 { font-size: var(--font-size-page-h1-std); }
     .text h2 { font-size: var(--font-size-page-h2-std); }
+
+    .text textarea { width: var(--content-max-half); }
+    .text select { max-width: var(--content-max); }
+
+    .textbox label { font-size: var(--font-size-page-std); }
+    .textbox input { min-width: var(--content-max-half); }
+
+    .big-textbox label { font-size: var(--font-size-page-big); }
+    .big-textbox input { min-width: var(--content-max-half); }
+
+    .readonly-text { width: var(--content-max-half); }
+    .selectbox { width: var(--content-max-half); }
+
+    .dynamic-form-row { width: var(--content-max-half); }
 
     .main-title {
         h1 { font-size: var(--font-size-page-title-big-std); }
