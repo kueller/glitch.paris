@@ -1,0 +1,14 @@
+services:
+  glitch:
+    image: mysql:8.4
+    container_name: glitch-dev
+    environment:
+      MYSQL_ROOT_PASSWORD: wow
+      MYSQL_DATABASE: glitch
+      MYSQL_USER: glitch
+      MYSQL_PASSWORD: test123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./glitchdb:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d

@@ -1,4 +1,4 @@
-package com.glitch.rest
+package com.glitch.rest.filter
 
 import com.glitch.model.Admin
 import com.glitch.security.createJwt
@@ -12,7 +12,6 @@ import org.http4k.core.Response
 import org.http4k.core.Status
 import org.http4k.core.body.form
 import org.http4k.core.cookie.cookie
-import org.http4k.core.cookie.replaceCookie
 
 
 val adminOnly: Filter = { next: HttpHandler ->
@@ -35,12 +34,25 @@ val adminOnly: Filter = { next: HttpHandler ->
 }
 
 
+val adminOnlyApi: Filter = { next: HttpHandler ->
+    { request: Request ->
+        val token = request.cookie("jwt")?.value
+
+        val decoded = token?.let { verifyJwt(token) }
+
+        val user = decoded?.getClaim("user")?.asString()
+        val subject = decoded?.subject
+
+        when {
+            user == "admin" && subject == "showsManager" -> next(request)
+            else -> Response(Status.FORBIDDEN)
+        }
+    }
+}
+
 val verifyAdmin: Filter = { next: HttpHandler ->
     { request: Request ->
         val formParams: Map<String, String?> = request.form().toMap()
-        for ((k, v) in formParams) {
-            println("$k: ${v ?: "null"}")
-        }
 
         val password = formParams["txt_password"]?.trim() ?: "null"
         val adminCredentials = Admin.getAdminCredentials()

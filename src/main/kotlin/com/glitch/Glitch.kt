@@ -8,6 +8,7 @@ import org.http4k.routing.routes
 import org.http4k.server.Jetty
 import org.http4k.server.asServer
 import org.http4k.server.uri
+import org.jetbrains.exposed.v1.core.DatabaseConfig
 import org.jetbrains.exposed.v1.jdbc.Database
 
 
@@ -30,6 +31,9 @@ fun main() {
         url = appConfig.dbUri,
         user = appConfig.dbUser,
         password = appConfig.dbPassword,
+        databaseConfig = DatabaseConfig {
+            keepLoadedReferencesOutOfTransaction = true
+        }
     )
 
     println("Starting server...")

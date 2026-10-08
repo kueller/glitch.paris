@@ -15,11 +15,11 @@
                     <div class="text">
                         <div class="centerbox-column">
                             <form method="POST">
-                                <div class="big-textbox">
-                                    <input type="password" name="txt_password"><br>
+                                <div class="form-row">
+                                    <input class="widebox" type="password" name="txt_password"><br>
+                                    <input type="submit" value="Login">
                                 </div>
                                 <input type="hidden" name="txt_return" th:attr="value=${model.returnUri}">
-                                <input type="submit" value="Login">
                             </form>
                         </div>
                     </div>

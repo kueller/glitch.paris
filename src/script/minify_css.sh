@@ -15,7 +15,7 @@ minify () {
 
     echo "Running minify on ${big_css}..."
 
-    lightningcss \
+    npx lightningcss \
         --minify "${PROJECT_STATIC}/style/${big_css}" \
         --output-file "${PROJECT_STATIC}/style/${min_css}"
 

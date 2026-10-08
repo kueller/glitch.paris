@@ -87,9 +87,9 @@
 }
 
 body {
-    font-family: "Inter";
+    font-family: "Inter", sans-serif;
     background-color: var(--color-bg);
-    margin: 0px;
+    margin: 0;
 }
 
 .page {
@@ -266,18 +266,6 @@ body {
     border-radius: 1px;
 }
 
-.text .textbox {
-    input {
-        margin: 5px 0;
-    }
-}
-
-.text .big-textbox {
-    input {
-        margin: 10px 0;
-    }
-}
-
 .text textarea {
     background-color: var(--color-white);
     resize: none;
@@ -317,28 +305,51 @@ body {
 
 .text select {
     min-width: 200px;
+    margin: 5px 0;
 }
 
 .text .selectbox {
     background-color: var(--color-white);
 }
 
-.dynamic-form-row {
+.text form {
+    display: block;
+}
+
+.form-row {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
     align-items: center;
     min-width: 200px;
+    width: 100%;
+    gap: 5px;
+}
 
-    input {
-        display: inline-flex;
-    }
+.form-row input {
+    display: inline-flex;
+    min-width: 0;
+}
 
-    input[type="button"] {
-        height: 29px;
-        padding: 4px 5px;
-        margin: 5px 0;
-    }
+.form-row input[type="button"], input[type="reset"], input[type="submit"] {
+    height: 29px;
+    padding: 4px 5px;
+    margin: 5px 0;
+}
+
+.form-row input[type="text"], input[type="search"] {
+    flex: 1;
+    min-width: 0;
+}
+
+.form-row select {
+    min-height: 0;
+}
+
+.form-row .widebox {
+    flex: 1;
+    min-width: 0;
+    background-color: var(--color-white);
 }
 
 .overlay {
@@ -506,6 +517,7 @@ body {
     .text p { font-size: var(--font-size-page-small); }
     .text h1 { font-size: var(--font-size-page-h1-small); }
     .text h2 { font-size: var(--font-size-page-h2-small); }
+    .text label { font-size: var(--font-size-page-small); }
 
     .text textarea { width: 50vw; }
     .text select { max-width: 50vw; }
@@ -513,16 +525,10 @@ body {
     .content { border-radius: 0px; }
     .transparent-content { border-radius: 0px; }
 
-    .textbox label { font-size: var(--font-size-page-small); }
-    .textbox input { min-width: 50vw; }
-
-    .big-textbox label { font-size: var(--font-size-page-std); }
-    .big-textbox input { min-width: 50vw; }
-
     .readonly-text { width: 50vw; }
     .selectbox { width: 50vw; }
 
-    .dynamic-form-row { width: 50vw; }
+    .text form { width: 50vw; }
 
     .main-title {
         h1 { font-size: var(--font-size-page-title-big-small); }
@@ -561,20 +567,15 @@ body {
     .text p { font-size: var(--font-size-page-std); }
     .text h1 { font-size: var(--font-size-page-h1-std); }
     .text h2 { font-size: var(--font-size-page-h2-std); }
+    .text label { font-size: var(--font-size-page-std); }
 
     .text textarea { width: var(--content-max-half); }
     .text select { max-width: var(--content-max); }
 
-    .textbox label { font-size: var(--font-size-page-std); }
-    .textbox input { min-width: var(--content-max-half); }
-
-    .big-textbox label { font-size: var(--font-size-page-big); }
-    .big-textbox input { min-width: var(--content-max-half); }
-
     .readonly-text { width: var(--content-max-half); }
     .selectbox { width: var(--content-max-half); }
 
-    .dynamic-form-row { width: var(--content-max-half); }
+    .text form { width: var(--content-max-half); }
 
     .main-title {
         h1 { font-size: var(--font-size-page-title-big-std); }

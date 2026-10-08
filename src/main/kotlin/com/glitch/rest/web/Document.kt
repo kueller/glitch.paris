@@ -1,4 +1,4 @@
-package com.glitch.rest
+package com.glitch.rest.web
 
 import com.glitch.config.appConfig
 import com.glitch.model.Document

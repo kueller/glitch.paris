@@ -4,6 +4,7 @@
     <title>Manage</title>
     <meta name="viewport" content="width=device-width initial-scale=1"/>
     <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? '~/static/style/glitch.min.css' : '~/static/style/glitch.css') }"/>
+    <script type="module" th:src="@{ (${model.useMins} ? '~/static/js/dist/showmanage.min.js' : '~/static/js/showmanage.js') }"></script>
 </head>
 
 <body>
@@ -14,18 +15,18 @@
         <div class="transparent-content">
             <div class="text">
                 <div class="centerbox-column">
-                    <form method="POST">
+                    <form method="POST" id="event-form">
                         <h2>Band(s)</h2>
 
-                        <div class="textbox">
-                            <label for="band-search-query">Search:</label><br>
-                            <div class="dynamic-form-row">
-                                <input type="search" id="band-search-query" style="min-width: 0; flex: 1;">
-                                <input class="inline-button" type="button" id="band-search-btn" value="Search" style="min-width: 60px; margin-left: 5px">
-                            </div>
+                        <label for="band-search-query">Search:</label><br>
+                        <div class="form-row">
+                            <input type="search" id="band-search-query">
+                            <input type="button" id="band-search-btn" value="Search">
                         </div>
 
-                        <select class="selectbox" size="10"></select><br>
+                        <div class="form-row">
+                            <select class="widebox" id="band-search-result" size="10"></select>
+                        </div>
                         <input type="button" id="select-band" value="Add band">
 
                         <p>
@@ -33,21 +34,26 @@
                             <input type="button" id="add-band" value="New band">
                         </p>
 
-                        <p>
-                            <label for="selected-bands">Select which ones were headliners:</label><br>
+                        <label for="selected-bands">Select which ones were headliners:</label><br>
+                        <label>Also order the bands using the arrows</label>
+                        <div class="form-row">
                             <select id="selected-bands" size="10" name="txt-bands" multiple></select>
-                        </p>
-
-                        <h2>Venue</h2>
-                        <div class="textbox">
-                            <label for="venue-search-query">Search:</label><br>
-                            <div class="dynamic-form-row">
-                                <input type="search" id="venue-search-query" style="min-width: 0; flex: 1">
-                                <input class="inline-button" type="button" id="venue-search-btn" value="Search" style="min-width: 60px; margin-left: 5px">
+                            <div>
+                                <input type="button" id="band-up" value="🞁"><br>
+                                <input type="button" id="band-down" value="🞃">
                             </div>
                         </div>
 
-                        <select class="selectbox" size="10"></select><br>
+                        <h2>Venue</h2>
+                        <label for="venue-search-query">Search:</label><br>
+                        <div class="form-row">
+                            <input type="search" id="venue-search-query">
+                            <input type="button" id="venue-search-btn" value="Search">
+                        </div>
+
+                        <div class="form-row">
+                            <select class="selectbox" id="venue-search-result" size="10"></select>
+                        </div>
                         <input type="button" id="select-venue" value="Choose venue">
 
                         <p>
@@ -55,9 +61,12 @@
                             <input type="button" id="add-venue" value="New venue">
                         </p>
 
-                        <div class="textbox">
-                            <p><input type="text" id="selected-venue" name="txt-venue" disabled></p>
+                        <br>
+
+                        <div class="form-row">
+                            <input type="text" id="selected-venue" disabled>
                         </div>
+                        <input type="hidden" id="selected-venue-uuid" name="txt-venue" disabled>
 
                         <h2>Event Information</h2>
 
@@ -180,17 +189,19 @@
                             </select>
                         </p>
 
-                        <h2>Festival-Only Information</h2>
+                        <div id="festival-only" style="display: none;">
+                            <h2>Festival-Only Information</h2>
 
-                        <div id="festival-date-selection">
-                            <p>
-                                <label for="end-date">What was the last day of the event?</label><br>
-                                <input type="date" id="end-date" name="dt-end-date" disabled>
-                            </p>
-                        </div>
+                            <div id="festival-date-selection">
+                                <p>
+                                    <label for="end-date">What was the last day of the event?</label><br>
+                                    <input type="date" id="end-date" name="dt-end-date">
+                                </p>
+                            </div>
 
-                        <div id="festival-per-band-date-select">
-                            <h3>Select the dates each band performed at the event</h3>
+                            <div id="festival-per-band-date-select">
+                                <h3>Select the dates each band performed</h3>
+                            </div>
                         </div>
 
                         <h2>Extra info</h2>
@@ -210,15 +221,106 @@
                             </p>
                         </div>
 
-                        <p>
-                            <label for="comments">Further comments, extra info, etc:</label><br>
-                            <textarea id="comments" name="txt-comments" rows="10"></textarea>
-                        </p>
+                        <label for="comments">Further comments, extra info, etc:</label><br>
+                        <div class="form-row">
+                            <textarea class="widebox" id="comments" name="txt-comments" rows="10"></textarea>
+                        </div>
 
                         <p>
-                            <input type="submit" value="Submit">
+                            <input type="submit" value="Submit" id="submit">
                         </p>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="new-band" style="opacity: 0">
+        <div class="photo-box">
+            <div class="transparent-content">
+                <div class="text">
+                    <div class="centerbox-column">
+                        <form method="POST">
+                            <p>
+                                <label for="new-band-name">Band name:</label><br>
+                                <input type="text" id="new-band-name">
+                            </p>
+
+                            <p>
+                                <label for="new-band-lastfmurl">(Optional) last.fm URL:</label><br>
+                                <input type="text" id="new-band-lastfmurl">
+                            </p>
+
+                            <div id="new-band-error"></div>
+
+                            <p>
+                                <input type="button" id="new-band-submit" value="Add new band">
+                                <input type="button" id="new-band-cancel" value="Cancel">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay" id="new-venue" style="opacity: 0">
+        <div class="photo-box" style="overflow: scroll">
+            <div class="transparent-content">
+                <div class="text">
+                    <div class="centerbox-column">
+                        <form method="POST">
+                            <p>
+                                <label for="new-venue-name">Venue name:</label><br>
+                                <input type="text" id="new-venue-name">
+                            </p>
+
+                            <br>
+
+                            <div>
+                                <label for="new-venue-address">Address:</label>
+                                <div class="form-row">
+                                    <input class="widebox" type="text" id="new-venue-address">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div>
+                                    <label for="new-venue-city">City:</label><br>
+                                    <input type="text" id="new-venue-city">
+                                </div>
+                                <div>
+                                    <label for="new-venue-postcode">State/Region:</label><br>
+                                    <input type="text" id="new-venue-state">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div>
+                                    <label for="new-venue-postcode">Post code:</label><br>
+                                    <input type="text" id="new-venue-postcode">
+                                </div>
+                                <div>
+                                    <label for="new-venue-country">Country:</label><br>
+                                    <input type="text" id="new-venue-country">
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <p>
+                                <label for="new-venue-googleurl">Google Maps URL:</label><br>
+                                <input type="text" id="new-venue-googleurl"><br>
+                                <label for="new-venue-url">(Optional) Venue URL:</label><br>
+                                <input type="text" id="new-venue-url">
+                            </p>
+
+                            <br>
+
+                            <div id="new-venue-error"></div>
+
+                            <p>
+                                <input type="button" id="new-venue-submit" value="Add new venue">
+                                <input type="button" id="new-venue-cancel" value="Cancel">
+                            </p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

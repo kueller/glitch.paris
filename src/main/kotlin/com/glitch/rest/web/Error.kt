@@ -1,4 +1,4 @@
-package com.glitch.rest
+package com.glitch.rest.web
 
 import org.http4k.core.*
 

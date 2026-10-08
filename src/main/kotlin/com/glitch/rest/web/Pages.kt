@@ -1,4 +1,4 @@
-package com.glitch.rest
+package com.glitch.rest.web
 
 import com.glitch.model.NightImage
 import org.http4k.core.Request
@@ -14,6 +14,6 @@ val night: HTMLPrepare = { request: Request ->
     NightModel(images)
 }
 
-val login: HTMLPrepare = {request: Request ->
+val login: HTMLPrepare = { request: Request ->
     LoginRedirectModel(request.query("return") ?: "")
 }

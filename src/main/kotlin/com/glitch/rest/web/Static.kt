@@ -1,7 +1,8 @@
-package com.glitch.rest
+package com.glitch.rest.web
 
 import com.glitch.config.Environments.Companion.PROD
 import com.glitch.config.appConfig
+import com.glitch.rest.filter.fontAccessFilter
 import com.glitch.util.concat
 import org.http4k.core.*
 import org.http4k.lens.contentType
@@ -20,34 +21,6 @@ internal class StaticDirectory {
             else -> Directory(appConfig.projectResources.concat("static").pathString)
         }
         val exteralStatic: ResourceLoader = Directory(appConfig.externPath.concat("static").pathString)
-    }
-}
-
-
-internal val extensions = Regex("\\.(woff|woff2|eot)$")
-
-
-val fontAccessFilter: Filter = { next: HttpHandler ->
-    { request: Request ->
-        val match: Boolean = extensions.containsMatchIn(request.uri.path)
-
-        when (appConfig.env) {
-            PROD if match -> {
-                val origin: String? = request.header("Origin")
-                val fetchSite: String? = request.header("Sec-Fetch-Site")
-
-                if ((origin == null && fetchSite == null)
-                    || (origin != null && origin != appConfig.selfUrl)
-                    || (fetchSite != null && fetchSite !in listOf("same-site", "same-origin"))
-                ) {
-                    Response(Status.FORBIDDEN)
-                } else {
-                    next(request)
-                }
-            }
-
-            else -> next(request)
-        }
     }
 }
 

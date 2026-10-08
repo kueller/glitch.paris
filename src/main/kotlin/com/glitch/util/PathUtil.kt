@@ -6,6 +6,9 @@ import kotlin.io.path.Path
 import kotlin.io.path.pathString
 
 
+val UNICODE_REGEX = Regex("""^[\p{L}\p{N}\s]+$""")
+
+
 /**
  * Connects two paths together regardless or origin and ensures
  * the slahes line up.

@@ -40,5 +40,6 @@ build/
 **/.env
 
 ### npm leftovers ###
+node_modules/
 package.json
 package-lock.json

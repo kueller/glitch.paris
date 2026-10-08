@@ -3,6 +3,7 @@
 
 SCRIPTS=(
     "photo.js photo.bundle.js photo.min.js"
+    "showmanage.js showmanage.bundle.js showmanage.min.js"
 )
 
 
