@@ -11,21 +11,21 @@ import org.http4k.routing.routes
 
 val webRouting: RoutingHttpHandler = routes(
 
-    "/" bind GET to HTMLMainPage(TopLevelPage.HOME).from(hello),
+        "/" bind GET to HTMLMainPage(TopLevelPage.HOME).from(hello),
 
-    "/night" bind GET to HTMLMainPage(TopLevelPage.NIGHT).from(night),
+        "/night" bind GET to HTMLMainPage(TopLevelPage.NIGHT).from(night),
 
-    "/etc" bind GET to HTMLMainPage(TopLevelPage.ETC),
+        "/etc" bind GET to HTMLMainPage(TopLevelPage.ETC),
 
-    "/shows" bind showsRouting,
+        "/shows" bind showsRouting,
 
-    "/login-admin" bind GET to HTMLSubPage().from(login),
-    "/login-admin" bind POST to HTMLSubPage().from(login).withFilter(verifyAdmin),
+        "/login-admin" bind GET to HTMLSubPage().from(login),
+        "/login-admin" bind POST to HTMLSubPage().from(login).withFilter(verifyAdmin),
 
-    "/favicon.ico" bind GET to favicon,
+        "/favicon.ico" bind GET to favicon,
 
-    "/documents/{filename:[^\\/:*?\"<>|]+$}" bind GET to documentHandler,
+        "/documents/{filename:[^\\/:*?\"<>|]+$}" bind GET to documentHandler,
 
-    "/static/{path:.*}" bind GET to staticHandler
+        "/static/{path:.*}" bind GET to staticHandler,
 
-)
+).withFilter(errorPageFilter)

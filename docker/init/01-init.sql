@@ -147,17 +147,6 @@ CREATE TABLE `venue` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `venue`
---
-
-LOCK TABLES `venue` WRITE;
-/*!40000 ALTER TABLE `venue` DISABLE KEYS */;
-INSERT INTO `venue` VALUES (1,'e54b11ba-1e34-4104-94b0-6f6f40aeaf95','Test Venue','123 Example St','Rouge City','10000','','','https://example.com',NULL),(2,'1eb95c9e-0e8b-49dc-8175-fcbf6d431f5d','New Venue','555 Rue Nouveau','Paris','75000','','','https://example.com/new',NULL),(3,'88890353-4073-4e7e-8f8a-336ecf27eb7e','Fox Theatre','2215 Broadway','Redwood City','94063','California','US','https://maps.app.goo.gl/SUbu4isY85vJhV5v8','http://foxrwc.com/');
-/*!40000 ALTER TABLE `venue` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

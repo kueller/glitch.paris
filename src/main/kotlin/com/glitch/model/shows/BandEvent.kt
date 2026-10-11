@@ -6,7 +6,7 @@ import org.jetbrains.exposed.v1.core.dao.id.IntIdTable
 import org.jetbrains.exposed.v1.dao.IntEntity
 import org.jetbrains.exposed.v1.dao.IntEntityClass
 import org.jetbrains.exposed.v1.datetime.date
-
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 object BandEventTable : IntIdTable("band_event") {
     val bandId = reference("band_id", BandTable)
@@ -16,9 +16,18 @@ object BandEventTable : IntIdTable("band_event") {
     val performanceDate = date("performance_date")
 }
 
-
 class BandEvent(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<BandEvent>(BandEventTable)
+    companion object : IntEntityClass<BandEvent>(BandEventTable) {
+        override fun new(init: BandEvent.() -> Unit): BandEvent =
+            transaction {
+                super.new { init() }
+            }
+
+        override fun new(id: Int?, init: BandEvent.() -> Unit): BandEvent =
+            transaction {
+                super.new(id) { init() }
+            }
+    }
 
     var band by Band referencedOn BandEventTable.bandId
     var event by Event referencedOn BandEventTable.eventId

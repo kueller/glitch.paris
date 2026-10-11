@@ -1,0 +1,7 @@
+[packages]
+mysql-connector-python = "*"
+markdown = "*"
+black = "*"
+
+[requires]
+python_version = "3.14"

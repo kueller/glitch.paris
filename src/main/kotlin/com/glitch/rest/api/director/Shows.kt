@@ -1,105 +1,150 @@
 package com.glitch.rest.api.director
 
+import com.glitch.exception.*
 import com.glitch.model.shows.Band
+import com.glitch.model.shows.BandEvent
 import com.glitch.model.shows.Event
 import com.glitch.model.shows.Venue
-import com.glitch.schema.api.director.BandsSearchResponse
-import com.glitch.schema.api.director.NewBandRequest
-import com.glitch.schema.api.director.NewEventRequest
-import com.glitch.schema.api.director.NewVenueRequest
-import com.glitch.schema.api.director.VenueSearchResponse
-import com.glitch.schema.model.shows.BandResponse
-import com.glitch.schema.model.shows.VenueResponse
+import com.glitch.rest.incomingJson
+import com.glitch.rest.outgoingJson
+import com.glitch.schema.api.director.*
 import com.glitch.util.UNICODE_REGEX
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import org.http4k.core.*
-import org.http4k.format.Jackson.auto
 import org.http4k.routing.path
-
+import org.jetbrains.exposed.v1.dao.flushCache
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 val searchBandByName: HttpHandler = { request: Request ->
     val name: String = request.path("query") ?: "xxxxxxxxx"
     if (!name.matches(UNICODE_REGEX)) {
-        Response(Status.BAD_REQUEST)
+        throw BadFormatting(name)
     } else {
-        val responseLens = Body.auto<BandsSearchResponse>().toLens()
         Response(Status.OK).with(
-            responseLens of BandsSearchResponse(
-                Band.findByName(name).map { it.serialize() }.toList()
-            )
+            outgoingJson(
+                BandsSearchResponse(
+                    Band.findByName(name).map { it.serialize() }.toList(),
+                ),
+            ),
         )
     }
 }
 
-
 val addNewBand: HttpHandler = { request: Request ->
-    val requestLens = Body.auto<NewBandRequest>().toLens()
-    val responseLens = Body.auto<BandResponse>().toLens()
+    val bandData = incomingJson<NewBandRequest>(request)
 
-    try {
-        val bandData = requestLens.extract(request)
-        try {
-            Response(Status.OK).with(responseLens of Band.new {
-                name = bandData.name
-                lastfmUrl = bandData.lastfmUrl
-            }.serialize())
-        } catch (e: Exception) {
-            Response(Status.INTERNAL_SERVER_ERROR)
-        }
-    } catch (e: Exception) {
-        Response(Status.BAD_REQUEST).body(e.message ?: e.toString())
-    }
+    Response(Status.OK).with(
+        outgoingJson(
+            Band
+                .new {
+                    name = bandData.name
+                    lastfmUrl = bandData.lastfmUrl
+                    country = bandData.origin
+                    genre = bandData.genre?.name
+                }.serialize(),
+        ),
+    )
 }
-
 
 val searchVenueByName: HttpHandler = { request: Request ->
     val name: String = request.path("query") ?: "xxxxxxxxx"
     if (!name.matches(UNICODE_REGEX)) {
-        Response(Status.BAD_REQUEST)
+        throw BadFormatting(name)
     } else {
-        val responseLens = Body.auto<VenueSearchResponse>().toLens()
         Response(Status.OK).with(
-            responseLens of VenueSearchResponse(
-                Venue.findByName(name).map { it.serialize() }.toList()
-            )
+            outgoingJson(
+                VenueSearchResponse(
+                    Venue.findByName(name).map { it.serialize() }.toList(),
+                ),
+            ),
         )
     }
 }
 
-
 val addNewVenue: HttpHandler = { request: Request ->
-    val requestLens = Body.auto<NewVenueRequest>().toLens()
-    val responseLens = Body.auto<VenueResponse>().toLens()
+    val venueData = incomingJson<NewVenueRequest>(request)
 
-    try {
-        val venueData = requestLens.extract(request)
-        try {
-            Response(Status.OK).with(responseLens of Venue.new {
-                name = venueData.name
-                address = venueData.address
-                city = venueData.city
-                postcode = venueData.postcode
-                state = venueData.state
-                country = venueData.country
-                googleUrl = venueData.googleUrl
-                venueUrl = venueData.venueUrl
-            }.serialize())
-        } catch (e: Exception) {
-            println(e.message.toString())
-            Response(Status.INTERNAL_SERVER_ERROR)
-        }
-    } catch (e: Exception) {
-        Response(Status.BAD_REQUEST).body(e.message ?: e.toString())
-    }
+    Response(Status.OK).with(
+        outgoingJson(
+            Venue
+                .new {
+                    name = venueData.name
+                    address = venueData.address
+                    city = venueData.city
+                    postcode = venueData.postcode
+                    state = venueData.state
+                    country = venueData.country
+                    googleUrl = venueData.googleUrl
+                    venueUrl = venueData.venueUrl
+                }.serialize(),
+        ),
+    )
 }
 
-
 val addNewEvent: HttpHandler = { request: Request ->
-    val requestLens = Body.auto<NewEventRequest>().toLens()
+    val eventData = incomingJson<NewEventRequest>(request)
 
-    try {
-        val eventData = requestLens.extract(request)
-    } catch (e: Exception) {
-        Response(Status.BAD_REQUEST).body(e.message ?: e.toString())
+    val venue = Venue.getByUuid(eventData.venueId) ?: throw VenueNotFound(eventData.venueId)
+
+    if (eventData.endDate != null && eventData.endDate <= eventData.startDate) {
+        throw InvalidDateRange(eventData.endDate)
     }
-    Response(Status.OK)
+
+    val bandData = mutableMapOf<Band, Pair<LocalDate, Boolean>>()
+
+    for (eventSlotDate: ScheduleRequest in eventData.schedule) {
+        if (eventSlotDate.date < eventData.startDate) {
+            throw OutOfRange(eventSlotDate.date)
+        }
+
+        if (eventData.endDate != null && eventSlotDate.date > eventData.endDate) {
+            throw OutOfRange(eventSlotDate.date)
+        }
+
+        var headliners = 0
+        for (bandSlot in eventSlotDate.bands) {
+            val band = Band.getByUuid(bandSlot.bandId) ?: throw BandNotFound(bandSlot.bandId)
+
+            if (bandSlot.headliner) headliners++
+
+            bandData[band] = Pair(eventSlotDate.date, bandSlot.headliner)
+        }
+
+        if (headliners == 0) {
+            throw NoHeadliner(eventSlotDate.date)
+        } else if (headliners > 1) {
+            throw MultipleHeadliners(eventSlotDate.date)
+        }
+    }
+
+    val event =
+        Event.new {
+            this.type = eventData.type
+            this.eventName = eventData.eventName
+            this.dateStart = eventData.startDate
+            this.dateEnd = eventData.endDate
+            this.timeStart = eventData.startTime?.let {
+                LocalDateTime(eventData.startDate, eventData.startTime)
+            }
+            this.timezone = eventData.timezone
+            this.venue = venue
+            this.url = eventData.url
+            this.imageFilename = eventData.image
+            this.comments = eventData.comments
+        }
+
+    event.flush()
+
+    bandData.map {
+        BandEvent.new {
+            this.event = event
+            this.band = it.key
+            this.performanceDate = it.value.first
+            this.headliner = it.value.second
+        }
+    }
+
+    transaction { flushCache() }
+    Response(Status.OK).with(outgoingJson(event.serialize()))
 }

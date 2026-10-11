@@ -9,7 +9,7 @@ import org.http4k.core.Method.GET
 
 val showsRouting: RoutingHttpHandler = routes(
 
-    "/" bind GET to HTMLSubPage(),
+    "/" bind GET to HTMLSubPage(templateName = "shows/shows"),
 
     "/manage" bind GET to HTMLSubPage().withFilter(adminOnly),
 

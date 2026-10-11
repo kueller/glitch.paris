@@ -4,6 +4,7 @@ src/extra/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+docker/glitchdb
 
 ### STS ###
 .apt_generated
@@ -38,6 +39,9 @@ build/
 
 ### Private test properties ###
 **/.env
+src/script/shows/.env
+src/script/shows/.python-version
+src/script/shows/Pipfile.lock
 
 ### npm leftovers ###
 node_modules/

@@ -11,14 +11,12 @@ import org.http4k.server.uri
 import org.jetbrains.exposed.v1.core.DatabaseConfig
 import org.jetbrains.exposed.v1.jdbc.Database
 
-
 /**
  * The main entry point to routing. No other routes should be here.
  */
 val appRouting: HttpHandler = routes(
     "/" bind restRouting,
 )
-
 
 fun main() {
     println("Starting glitch.paris...")

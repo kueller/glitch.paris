@@ -14,7 +14,7 @@ object AdminTable : IntIdTable("admin") {
 class Admin(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Admin>(AdminTable) {
         fun getAdminCredentials(): Admin? = transaction {
-            Admin.findById(1)
+            findById(1)
         }
     }
 

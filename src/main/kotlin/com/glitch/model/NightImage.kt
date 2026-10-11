@@ -6,13 +6,11 @@ import org.jetbrains.exposed.v1.dao.IntEntity
 import org.jetbrains.exposed.v1.dao.IntEntityClass
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
-
 object NightImageTable : IntIdTable("night_images") {
     val title = varchar("title", 100)
     val filename = varchar("filename", 100)
     val altText = varchar("alt_text", 500)
 }
-
 
 /**
  * Directory of Paris by night photos.

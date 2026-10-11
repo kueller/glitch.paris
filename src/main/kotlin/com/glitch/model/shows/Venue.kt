@@ -3,12 +3,12 @@ package com.glitch.model.shows
 import com.glitch.schema.model.shows.VenueResponse
 import org.jetbrains.exposed.v1.core.dao.id.EntityID
 import org.jetbrains.exposed.v1.core.dao.id.IntIdTable
+import org.jetbrains.exposed.v1.core.eq
 import org.jetbrains.exposed.v1.core.like
 import org.jetbrains.exposed.v1.dao.IntEntity
 import org.jetbrains.exposed.v1.dao.IntEntityClass
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
-import java.util.UUID
-
+import java.util.*
 
 object VenueTable : IntIdTable("venue") {
     val uuid = varchar("uuid", 45)
@@ -23,30 +23,33 @@ object VenueTable : IntIdTable("venue") {
     val venueUrl = varchar("venue_url", 128).nullable()
 }
 
-
 class Venue(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<Venue>(VenueTable) {
-        override fun new(init: Venue.() -> Unit): Venue{
-            return transaction {
+        override fun new(init: Venue.() -> Unit): Venue =
+            transaction {
                 super.new {
                     init()
                     uuid = UUID.randomUUID().toString()
                 }
             }
-        }
 
-        override fun new(id: Int?, init: Venue.() -> Unit): Venue {
-            return transaction {
+        override fun new(id: Int?, init: Venue.() -> Unit): Venue =
+            transaction {
                 super.new(id) {
                     init()
                     uuid = UUID.randomUUID().toString()
                 }
             }
-        }
 
         val findByName: (String) -> List<Venue> = { name: String ->
             transaction {
                 find { VenueTable.name like "%$name%" }.toList()
+            }
+        }
+
+        val getByUuid: (String) -> Venue? = { uuid: String ->
+            transaction {
+                find { VenueTable.uuid eq uuid }.firstOrNull()
             }
         }
     }
@@ -73,7 +76,7 @@ class Venue(id: EntityID<Int>) : IntEntity(id) {
             this.state,
             this.country,
             this.googleUrl,
-            this.venueUrl
+            this.venueUrl,
         )
     }
 }

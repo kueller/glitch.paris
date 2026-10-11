@@ -16,7 +16,7 @@ mvn clean install -DskipMinify
 
 To minify the scripts during build. Using npm:
 ```sh
-npm install -g lightningcss
+npm install -g lightningcss-cli
 npm install -g rollup
 npm install -g terser
 ```

@@ -12,9 +12,7 @@ import org.http4k.template.viewModel
 import kotlin.io.path.Path
 import kotlin.io.path.pathString
 
-
 typealias HTMLPrepare = (Request) -> BasicViewModel
-
 
 abstract class ThymeleafViewModel : ViewModel {
     abstract val topLevelPages: Array<TopLevelPage>
@@ -28,7 +26,6 @@ abstract class ThymeleafViewModel : ViewModel {
         return "${this.templatePath}.html"
     }
 }
-
 
 /**
  * View model that will store the HTML variables to be sent to the template
@@ -48,7 +45,6 @@ open class BasicViewModel : ThymeleafViewModel() {
     override var name: String = ""
     override var useMins: Boolean = appConfig.useMins
 }
-
 
 /**
  * Template for a standard HTML web page. To be used as an [HttpHandler].
@@ -110,7 +106,6 @@ open class HTMLPage : HttpHandler {
     }
 }
 
-
 /**
  * Template for the top level HTML pages.
  * @param page This [TopLevelPage] will define the template file location
@@ -126,8 +121,7 @@ class HTMLMainPage(val page: TopLevelPage) : HTMLPage() {
     }
 }
 
-
-class HTMLSubPage(val templateName: String? = null): HTMLPage() {
+class HTMLSubPage(val templateName: String? = null) : HTMLPage() {
     override fun generateViewModel(request: Request): BasicViewModel {
         val requestPath = Path(request.uri.path)
 

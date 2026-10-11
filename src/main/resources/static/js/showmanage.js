@@ -189,6 +189,8 @@ const event_BandAddNewSubmit = () => {
 
     const bandName = document.getElementById("new-band-name").value.trim();
     const lastfmUrl = document.getElementById("new-band-lastfmurl").value.trim();
+    const bandOrigin = document.getElementById("new-band-origin").value.trim();
+    const bandGenre = document.getElementById("new-band-genre").selectedOptions.item(0)?.value ?? null;
 
     if (bandName === "") {
         setPopUpError(error, "Name cannot be empty");
@@ -207,6 +209,8 @@ const event_BandAddNewSubmit = () => {
                 {
                     "name": bandName,
                     "lastfm_url": lastfmUrl === "" ? null : lastfmUrl,
+                    "origin": bandOrigin === "" ? null : bandOrigin,
+                    "genre": bandGenre,
                 }
             ),
         })
@@ -220,6 +224,9 @@ const event_BandAddNewSubmit = () => {
         .then(data => {
             selectBand(data["uuid"], data["name"]);
             overlay.classList.remove("active");
+            document.getElementById("new-band-name").value = "";
+            document.getElementById("new-band-lastfmurl").value = "";
+            document.getElementById("new-band-origin").value = "";
         })
         .catch(responseError => {
             setPopUpError(error, responseError);
@@ -405,6 +412,14 @@ const event_VenueAddNewSubmit = () => {
         .then(data => {
             selectVenue(data["uuid"], data["name"]);
             overlay.classList.remove("active");
+            document.getElementById("new-venue-name").value = ""
+            document.getElementById("new-venue-address").value = ""
+            document.getElementById("new-venue-city").value = ""
+            document.getElementById("new-venue-postcode").value = ""
+            document.getElementById("new-venue-state").value = ""
+            document.getElementById("new-venue-country").value = ""
+            document.getElementById("new-venue-googleurl").value = ""
+            document.getElementById("new-venue-url").value = ""
         })
         .catch(responseError => {
             setPopUpError(error, responseError);
@@ -441,7 +456,6 @@ const event_ShowHideFestivalOnly = () => {
 const event_Submit = (event) => {
     event.preventDefault();
 
-    // const bandSelected = [...document.getElementById("selected-bands").options].map(band => band.value);
     const bands = [...document.getElementById("selected-bands").options];
 
     const venueUuid = document.getElementById("selected-venue-uuid").value.trim();
@@ -459,13 +473,13 @@ const event_Submit = (event) => {
 
     if (eventType === "FESTIVAL") {
         bands.forEach(band => {
-            let date = document.getElementById("band-" + band.value);
+            let date = document.getElementById("band-" + band.value).value;
 
             if (!(date in bandInfo)) {
-                bandInfo[date.value] = [];
+                bandInfo[date] = [];
             }
 
-            bandInfo[date.value].push({ "band": band.value, "headliner": band.selected });
+            bandInfo[date].push({"band": band.value, "headliner": band.selected});
         });
     } else {
         bandInfo[startDate] = bands.map(band => {
@@ -477,18 +491,35 @@ const event_Submit = (event) => {
     const imageFilename = document.getElementById("image-file").value.trim();
     const comments = document.getElementById("comments").value.trim();
 
+    if (eventType === null) {
+        alert("Invalid event type.");
+        return;
+    }
+    if (venueUuid === "") {
+        alert("Venue selection is required.");
+        return;
+    }
+    if (startDate === "") {
+        alert("Start date is required.");
+        return;
+    }
+    if (timezone === "") {
+        alert("Timezone selection is required.");
+        return;
+    }
+
     const submitData = {
         "type": eventType,
         "venue": venueUuid,
         "start_date": startDate,
-        "start_time": startTime,
         "timezone": timezone,
         "schedule": Object.keys(bandInfo).map(date => {
-            return {"date": date, "bands": bandInfo[date] }
+            return {"date": date, "bands": bandInfo[date]}
         }),
     };
 
     if (eventName !== "") submitData["event_name"] = eventName;
+    if (startTime !== "") submitData["start_time"] = startTime;
     if (festivalEndDate !== "") submitData["end_date"] = festivalEndDate;
     if (eventUrl !== "") submitData["url"] = eventUrl;
     if (imageFilename !== "") submitData["image"] = imageFilename;
@@ -513,7 +544,7 @@ const event_Submit = (event) => {
             return response.json();
         })
         .then(data => {
-            alert("Successfully added new show.");
+            alert("Successfully added new show for " + data["start_date"]);
         })
         .catch(error => {
             console.log(error);

@@ -2,14 +2,9 @@ package com.glitch.rest.filter
 
 import com.glitch.config.Environments
 import com.glitch.config.appConfig
-import org.http4k.core.Filter
-import org.http4k.core.HttpHandler
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status
+import org.http4k.core.*
 
 internal val extensions = Regex("\\.(woff|woff2|eot)$")
-
 
 val fontAccessFilter: Filter = { next: HttpHandler ->
     { request: Request ->

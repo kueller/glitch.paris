@@ -10,5 +10,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./glitchdb:/var/lib/mysql
-      - ./init:/docker-entrypoint-initdb.d
+      - ./init:/docker-entrypoint-initdb.d:ro
+      - glitchdb_data:/var/lib/mysql
+      
+volumes:
+    glitchdb_data:

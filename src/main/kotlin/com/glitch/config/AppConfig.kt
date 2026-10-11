@@ -3,7 +3,6 @@ package com.glitch.config
 import java.nio.file.Path
 import kotlin.io.path.Path
 
-
 abstract class AppConfig(
     open val env: String = "none",
     open val name: String = System.getenv("APP_NAME") ?: "glitch",
@@ -19,7 +18,6 @@ abstract class AppConfig(
     open val dbAutoLoad: Boolean = false,
 )
 
-
 data class AppConfigProd(
     override val env: String = Environments.PROD,
     override val selfUrl: String = "https://glitch.paris",
@@ -28,13 +26,11 @@ data class AppConfigProd(
     override val dbAutoLoad: Boolean = false,
 ) : AppConfig()
 
-
 data class AppConfigDev(
     override val env: String = Environments.DEV,
     override val selfUrl: String = "http://localhost",
     override val useMins: Boolean = false,
 ) : AppConfig()
-
 
 data class AppConfigTest(
     override val env: String = Environments.TEST,
@@ -44,7 +40,6 @@ data class AppConfigTest(
     override val dbUser: String = "sa",
     override val dbPassword: String = "password",
 ) : AppConfig()
-
 
 internal fun loadAppConfig(): AppConfig {
     return when (System.getenv("APP_ENV")?.lowercase() ?: "-") {
@@ -58,6 +53,5 @@ internal fun loadAppConfig(): AppConfig {
         )
     }
 }
-
 
 val appConfig: AppConfig = loadAppConfig()

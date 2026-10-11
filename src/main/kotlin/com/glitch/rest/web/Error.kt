@@ -2,15 +2,12 @@ package com.glitch.rest.web
 
 import org.http4k.core.*
 
-
 data class ErrorPage(val status: Int, val description: String, val path: String, val details: String? = null) :
     BasicViewModel()
-
 
 fun errorProcessor(status: Int, description: String, details: String? = null): HTMLPrepare = { request: Request ->
     ErrorPage(status, description, request.uri.path, details).also { it.templatePath = "/error" }
 }
-
 
 val errorPageFilter: Filter = { next: HttpHandler ->
     { request: Request ->

@@ -10,7 +10,6 @@ import java.io.File
 import kotlin.io.path.exists
 import kotlin.io.path.pathString
 
-
 val documentHandler: HttpHandler = { request: Request ->
     val filename: String = request.path("filename") ?: "-"
     val filePath: String = Document.findByFilename(filename)?.path ?: "-"

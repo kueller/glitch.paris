@@ -228,6 +228,20 @@ body {
     max-width: 100%;
 }
 
+.equal-space-text {
+    h1 { margin: 0; }
+    h2 { margin: 0; }
+    h3 { margin: 0; }
+}
+
+.no-color-links {
+    a { color: var(--color-text); }
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
 .text {
     text-align: left;
     line-height: 1.6;
@@ -310,6 +324,13 @@ body {
 
 .text .selectbox {
     background-color: var(--color-white);
+}
+
+.text .notebox {
+    background-color: var(--color-title-shadow-75);
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 5px;
 }
 
 .text form {

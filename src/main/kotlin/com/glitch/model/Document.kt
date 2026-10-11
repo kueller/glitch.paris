@@ -7,12 +7,10 @@ import org.jetbrains.exposed.v1.dao.IntEntity
 import org.jetbrains.exposed.v1.dao.IntEntityClass
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
-
 object DocumentTable : IntIdTable("document") {
     val filename = varchar("filename", 100)
     val path = varchar("path", 200)
 }
-
 
 /**
  * Whitelist mapping of a document name to its location on the file system.

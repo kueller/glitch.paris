@@ -13,7 +13,6 @@ import org.http4k.routing.static
 import java.net.URL
 import kotlin.io.path.pathString
 
-
 internal class StaticDirectory {
     companion object {
         val localStatic: ResourceLoader = when (appConfig.env) {
@@ -23,7 +22,6 @@ internal class StaticDirectory {
         val exteralStatic: ResourceLoader = Directory(appConfig.externPath.concat("static").pathString)
     }
 }
-
 
 /**
  * In production, will first search the static classpath directory.
@@ -44,7 +42,6 @@ val staticHandler: HttpHandler = { request: Request ->
             .invoke(request)
     }
 }
-
 
 val favicon: HttpHandler = { request: Request ->
     try {

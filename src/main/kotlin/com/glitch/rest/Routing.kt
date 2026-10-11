@@ -25,4 +25,5 @@ val restRouting: RoutingHttpHandler = routes(
     webRouting,
 
     "/api" bind apiRouting
+
 )

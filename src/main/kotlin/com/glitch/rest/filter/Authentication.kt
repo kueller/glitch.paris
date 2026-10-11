@@ -5,14 +5,9 @@ import com.glitch.security.createJwt
 import com.glitch.security.hashPassword
 import com.glitch.security.verifyJwt
 import com.glitch.util.createCookie
-import org.http4k.core.Filter
-import org.http4k.core.HttpHandler
-import org.http4k.core.Request
-import org.http4k.core.Response
-import org.http4k.core.Status
+import org.http4k.core.*
 import org.http4k.core.body.form
 import org.http4k.core.cookie.cookie
-
 
 val adminOnly: Filter = { next: HttpHandler ->
     { request: Request ->
@@ -24,7 +19,10 @@ val adminOnly: Filter = { next: HttpHandler ->
         val subject = decoded?.subject
 
         when {
-            user == "admin" && subject == "showsManager" -> next(request)
+            user == "admin" && subject == "showsManager" -> {
+                next(request)
+            }
+
             else -> {
                 Response(Status.FOUND)
                     .header("Location", "/login-admin?return=${request.uri.path}")
@@ -32,7 +30,6 @@ val adminOnly: Filter = { next: HttpHandler ->
         }
     }
 }
-
 
 val adminOnlyApi: Filter = { next: HttpHandler ->
     { request: Request ->
@@ -68,7 +65,10 @@ val verifyAdmin: Filter = { next: HttpHandler ->
                     .header("Location", redirectUri)
                     .cookie(createCookie("jwt", jwt, 3600))
             }
-            else -> next(request)
+
+            else -> {
+                next(request)
+            }
         }
     }
 }

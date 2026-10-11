@@ -6,8 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.glitch.config.appConfig
-import java.util.Date
-
+import java.util.*
 
 internal class JwtConfig {
     companion object {
@@ -16,7 +15,6 @@ internal class JwtConfig {
         val verifier: JWTVerifier = JWT.require(algorithm).withIssuer(issuer).build()
     }
 }
-
 
 fun createJwt(subject: String, username: String, ttl: Int = 60): String {
     val ttlMs: Long = ttl.toLong() * 60 * 1000
@@ -28,7 +26,6 @@ fun createJwt(subject: String, username: String, ttl: Int = 60): String {
         .withExpiresAt(Date(System.currentTimeMillis() + ttlMs))
         .sign(JwtConfig.algorithm)
 }
-
 
 fun verifyJwt(jwt: String): DecodedJWT? =
     try {

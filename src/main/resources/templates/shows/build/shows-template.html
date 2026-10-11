@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+    <head>
+        <title>Shows I've Seen</title>
+        <meta th:replace="fragments/meta :: meta (title='Shows I’ve seen', description='My personal concert tracker.', url='/shows', image='/static/img/meta.jpg')">
+        <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? '~/static/style/glitch.min.css' : '~/static/style/glitch.css') }"/>
+    </head>
+
+    <body>
+        <div class="page">
+            <div th:replace="~{fragments/navigation :: navigation}"></div>
+
+            <div class="content-wrap">
+                <div class="main-title">
+                    <h1>Shows</h1>
+                    <h2>A list of every concert I have been to</h2>
+                </div>
+
+                <div class="content">
+                    <div class="text">
+                        <div id="contents">
+                            <h2>Jump to year</h2>
+                            {contents}
+                        </div>
+                        <h2></h2>
+
+                        {shows}
+                    </div>
+                </div>
+            </div>
+
+            <footer th:replace="~{fragments/footer :: footer}"></footer>
+        </div>
+    </body>
+</html>

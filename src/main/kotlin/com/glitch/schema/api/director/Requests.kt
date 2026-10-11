@@ -1,14 +1,21 @@
 package com.glitch.schema.api.director
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.glitch.model.shows.EventType
+import com.glitch.model.shows.Genre
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalTime
 
-
+@JsonClass(generateAdapter = true)
 data class NewBandRequest(
     val name: String,
-    @get:JsonProperty("lastfm_url") val lastfmUrl: String? = null
+    val origin: String? = null,
+    val genre: Genre? = null,
+    @Json(name = "lastfm_url") val lastfmUrl: String? = null,
 )
 
-
+@JsonClass(generateAdapter = true)
 data class NewVenueRequest(
     val name: String,
     val address: String,
@@ -16,34 +23,33 @@ data class NewVenueRequest(
     val postcode: String,
     val state: String,
     val country: String,
-    @get:JsonProperty("google_url") val googleUrl: String,
-    @get:JsonProperty("venue_url") val venueUrl: String? = null,
+    @Json(name = "google_url") val googleUrl: String,
+    @Json(name = "venue_url") val venueUrl: String? = null,
 )
 
-
+@JsonClass(generateAdapter = true)
 data class BandTimeSlotRequest(
-    val selected: Boolean,
-    @get:JsonProperty("band") val bandId: String,
+    val headliner: Boolean,
+    @Json(name = "band") val bandId: String,
 )
 
-
+@JsonClass(generateAdapter = true)
 data class ScheduleRequest(
-    val date: String,
-    val bands: List<BandTimeSlotRequest>
+    val date: LocalDate,
+    val bands: List<BandTimeSlotRequest>,
 )
 
-
+@JsonClass(generateAdapter = true)
 data class NewEventRequest(
-    val type: String,
+    val type: EventType,
     val timezone: String,
     val schedule: List<ScheduleRequest>,
-    @get:JsonProperty("venue") val venueId: String,
-    @get:JsonProperty("start_date") val startDate: String,
-    @get:JsonProperty("start_time") val startTime: String,
-
+    @Json(name = "venue") val venueId: String,
+    @Json(name = "start_date") val startDate: LocalDate,
     val url: String? = null,
     val image: String? = null,
     val comments: String? = null,
-    @get:JsonProperty("end_date") val endDate: String? = null,
-    @get:JsonProperty("event_name") val eventName: String? = null,
+    @Json(name = "start_time") val startTime: LocalTime? = null,
+    @Json(name = "end_date") val endDate: LocalDate? = null,
+    @Json(name = "event_name") val eventName: String? = null,
 )

@@ -5,9 +5,7 @@ import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.pathString
 
-
 val UNICODE_REGEX = Regex("""^[\p{L}\p{N}\s]+$""")
-
 
 /**
  * Connects two paths together regardless or origin and ensures
@@ -19,7 +17,6 @@ val UNICODE_REGEX = Regex("""^[\p{L}\p{N}\s]+$""")
 fun Path.concat(addition: String): Path {
     return Path(File(this.pathString, addition).absolutePath)
 }
-
 
 /**
  * Connects two paths together regardless or origin and ensures

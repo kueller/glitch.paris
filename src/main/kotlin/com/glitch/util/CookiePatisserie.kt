@@ -1,6 +1,5 @@
 package com.glitch.util
 
-import org.http4k.core.Request
 import org.http4k.core.cookie.Cookie
 import org.http4k.core.cookie.SameSite
 

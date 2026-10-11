@@ -1,24 +1,20 @@
 package com.glitch.schema.model.shows
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-
+@JsonClass(generateAdapter = true)
 data class EventResponse(
     val uuid: String,
     val type: String,
-
-    @get:JsonProperty("date_start") val dateStart: String,
-    @get:JsonProperty("date_end") val dateEnd: String?,
-    @get:JsonProperty("time_start") val timeStart: String,
+    @Json(name = "start_date") val dateStart: String,
+    @Json(name = "end_date") val dateEnd: String?,
+    @Json(name = "start_time") val timeStart: String?,
     val timezone: String,
-
     val venue: VenueResponse,
-
-    @get:JsonProperty("event_name") val eventName: String?,
+    @Json(name = "event_name") val eventName: String?,
     val comments: String?,
-
     val url: String?,
-    @get:JsonProperty("image_filename") val imageFilename: String?,
-
+    @Json(name = "image_filename") val imageFilename: String?,
     val bands: List<BandResponse>,
 )

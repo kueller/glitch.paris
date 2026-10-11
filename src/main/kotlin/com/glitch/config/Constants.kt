@@ -1,6 +1,5 @@
 package com.glitch.config
 
-
 /**
  * The top level pages on the site mapped to the URI path.
  */
@@ -13,7 +12,6 @@ enum class TopLevelPage(val entry: Pair<String, String>) {
     val pageName: String = this.entry.first
     val pagePath: String = this.entry.second
 }
-
 
 sealed class Environments {
     companion object {

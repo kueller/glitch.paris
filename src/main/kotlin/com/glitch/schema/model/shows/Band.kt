@@ -1,16 +1,15 @@
 package com.glitch.schema.model.shows
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class BandResponse(
     val uuid: String,
     val name: String,
-    @get:JsonProperty("lastfm_url") val lastfmUrl: String?,
-
-    @get:JsonInclude(JsonInclude.Include.NON_NULL) val headliner: Boolean? = null,
-
-    @get:JsonProperty("performance_date")
-    @get:JsonInclude(JsonInclude.Include.NON_NULL)
-    val performanceDate: String? = null,
+    @Json(name = "lastfm_url") val lastfmUrl: String?,
+    val country: String? = null,
+    val genre: String? = null,
+    val headliner: Boolean? = null,
+    @Json(name = "performance_date") val performanceDate: String? = null,
 )

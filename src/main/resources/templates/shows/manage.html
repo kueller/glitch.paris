@@ -84,7 +84,7 @@
                         </div>
 
                         <p>
-                            <label for="start-date">What day(s) was the show?</label><br>
+                            <label for="start-date">What day was the show/first day?</label><br>
                             <input type="date" id="start-date" name="dt-start-date">
                         </p>
 
@@ -139,7 +139,7 @@
                                 <option value="Africa/Abidjan">(GMT) Monrovia, Reykjavik</option>
                                 <option value="Europe/Amsterdam">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</option>
                                 <option value="Europe/Belgrade">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</option>
-                                <option value="Europe/Paris">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</option>
+                                <option value="Europe/Paris" selected>(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</option>
                                 <option value="Africa/Algiers">(GMT+01:00) West Central Africa</option>
                                 <option value="Africa/Windhoek">(GMT+01:00) Windhoek</option>
                                 <option value="Asia/Beirut">(GMT+02:00) Beirut</option>
@@ -248,6 +248,43 @@
                             <p>
                                 <label for="new-band-lastfmurl">(Optional) last.fm URL:</label><br>
                                 <input type="text" id="new-band-lastfmurl">
+                            </p>
+
+                            <p>
+                                <label for="new-band-origin">Country of origin (2-letter):</label><br>
+                                <input type="text" id="new-band-origin">
+                            </p>
+                            <p>
+                                <label for="new-band-genre">Genre:</label><br>
+                                <select id="new-band-genre">
+                                    <option value="ROCK">Rock</option>
+                                    <option value="POP">Pop</option>
+                                    <option value="ELECTRONIC">Electronic</option>
+                                    <option value="METAL">Metal</option>
+                                    <option value="ALT">Alternative</option>
+                                    <option value="POST_ROCK">Post-Rock</option>
+                                    <option value="MAHOGANY">Heavy Mahogany</option>
+                                    <option value="FOLK">Folk</option>
+                                    <option value="INDIE">Indie</option>
+                                    <option value="SHOEGAZE">Shoegaze</option>
+                                    <option value="HIP_HOP">Hip Hop</option>
+                                    <option value="PUNK">Punk</option>
+                                    <option value="ORCHESTRAL">Orchestral</option>
+                                    <option value="LATIN">Latin</option>
+                                    <option value="MUSICAL">Musical</option>
+                                    <option value="PROG">Progressive Rock</option>
+                                    <option value="EXPERIMENTAL">Experimental</option>
+                                    <option value="DREAM_POP">Dream Pop</option>
+                                    <option value="HYPERPOP">Hyperpop</option>
+                                    <option value="GABBER">Gabber</option>
+                                    <option value="TECHNO">Techno</option>
+                                    <option value="HOUSE">House</option>
+                                    <option value="JAZZ">Jazz</option>
+                                    <option value="NOISE">Noise</option>
+                                    <option value="AMBIENT">Ambient</option>
+                                    <option value="TRIP_HOP">Trip-Hop</option>
+                                    <option value="RNB">RnB</option>
+                                </select>
                             </p>
 
                             <div id="new-band-error"></div>
