@@ -1,12 +1,15 @@
 package com.glitch.model.shows
 
 import com.glitch.schema.model.shows.BandResponse
+import org.jetbrains.exposed.v1.core.SortOrder
 import org.jetbrains.exposed.v1.core.dao.id.EntityID
 import org.jetbrains.exposed.v1.core.dao.id.IntIdTable
 import org.jetbrains.exposed.v1.core.eq
 import org.jetbrains.exposed.v1.core.like
 import org.jetbrains.exposed.v1.dao.IntEntity
 import org.jetbrains.exposed.v1.dao.IntEntityClass
+import org.jetbrains.exposed.v1.jdbc.Query
+import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import java.util.*
 
@@ -69,6 +72,18 @@ class Band(id: EntityID<Int>) : IntEntity(id) {
         val getByUuid: (String) -> Band? = { uuid: String ->
             transaction {
                 find { BandTable.uuid eq uuid }.firstOrNull()
+            }
+        }
+
+        val getBandAndShowsByUuid: (String) -> Query = { uuid: String ->
+            transaction {
+                BandTable
+                    .innerJoin(BandEventTable)
+                    .innerJoin(EventTable)
+                    .leftJoin(VenueTable)
+                    .selectAll()
+                    .where { BandTable.uuid eq uuid }
+                    .orderBy(BandEventTable.performanceDate, SortOrder.ASC)
             }
         }
 

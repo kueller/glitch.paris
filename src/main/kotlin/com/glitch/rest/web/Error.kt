@@ -1,5 +1,6 @@
 package com.glitch.rest.web
 
+import com.glitch.exception.GlitchException
 import org.http4k.core.*
 
 data class ErrorPage(val status: Int, val description: String, val path: String, val details: String? = null) :
@@ -25,6 +26,12 @@ val errorPageFilter: Filter = { next: HttpHandler ->
                     else -> response
                 }
             }
+        } catch (e: GlitchException) {
+            HTMLPage()
+                .from(errorProcessor(e.status.code, e.message))
+                .apply {
+                    defaultStatus = e.status
+                }.invoke(request)
         } catch (e: Exception) {
             val error: String = e.toString().substringAfterLast('.')
             println(e)

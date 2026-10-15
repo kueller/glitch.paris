@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https;//thymeleaf.org">
+<head>
+    <title th:text="@{${model.bandName} + ' - Shows'}"></title>
+    <meta th:replace="fragments/meta :: meta (title='${model.bandName}', description='Shows I’ve seen.', url='/shows/band/', image='/static/img/meta.jpg')">
+    <link rel="stylesheet" type="text/css" th:href="@{ (${model.useMins} ? '~/static/style/glitch.min.css' : '~/static/style/glitch.css') }"/>
+</head>
+
+<body>
+<div class="page">
+    <div th:replace="~{fragments/navigation :: navigation}"></div>
+
+    <div class="content-wrap">
+        <div class="main-title">
+            <h1>Shows</h1>
+            <h2>A list of every concert I have been to</h2>
+        </div>
+
+        <div class="content">
+            <div class="text">
+                <span><a href="/shows">↩ Back to shows</a></span>
+
+                <h2></h2>
+
+                <h1 th:text="${model.bandName}"></h1>
+
+                <div>
+                    <b>Origin:</b> <span th:text="${model.country}"></span><br>
+                    <b>Genre:</b> <span th:text="${model.genre}"></span><br>
+                    <th:block th:if="${model.lastfmUrl} != null"><a th:href="${model.lastfmUrl}">last.fm</a></th:block>
+                </div>
+
+                <p></p>
+
+                <div>
+                    <span th:text="${#lists.size(model.shows)} + ' shows, ' + ${model.headliningCount} + ' headlining'"></span>
+                    <th:block th:if="${model.countryStatText} != null">
+                        <br>
+                        <span th:text="${model.countryStatText}"></span>
+                    </th:block>
+                </div>
+
+                <hr>
+
+                <table class="table-alt-colors">
+                    <th:block th:each="show : ${model.shows}">
+                        <tr class="two-column-row">
+                            <td th:if="${show.isHeadliner}"><b th:text="${show.date}"></b></td>
+                            <td th:unless="${show.isHeadliner}" th:text="${show.date}"></td>
+                            <td>
+                                <th:block th:if="${show.title} != null"><b th:text="${show.title}"></b><br></th:block>
+                                <th:block th:text="${show.city} + ', ' + ${show.country}"></th:block>
+                            </td>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+</body>
+</html>

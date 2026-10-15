@@ -129,6 +129,8 @@ class HTMLSubPage(val templateName: String? = null) : HTMLPage() {
 
         if (this.templateName.isNullOrBlank()) {
             viewModel.templatePath = requestPath.pathString
+        } else if (this.templateName.startsWith("/")) {
+            viewModel.templatePath = this.templateName
         } else {
             viewModel.templatePath = requestPath.parent.concat(this.templateName).pathString
         }
