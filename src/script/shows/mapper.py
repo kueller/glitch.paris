@@ -81,6 +81,7 @@ class Band:
 class Venue:
     def __init__(self, row: tuple):
         self.id = row[VenueRow.VENUE_ID]
+        self.uuid = row[VenueRow.VENUE_UUID]
         self.name = row[VenueRow.VENUE_NAME]
         self.city = row[VenueRow.CITY]
         self.country = row[VenueRow.COUNTRY]

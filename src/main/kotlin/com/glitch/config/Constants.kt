@@ -7,6 +7,7 @@ enum class TopLevelPage(val entry: Pair<String, String>) {
     HOME("home" to "/"),
     KNOWLEDGE("knowledge" to "https://knowledge.glitch.paris"),
     NIGHT("night" to "/night"),
+    SHOWS("shows" to "/shows"),
     ETC("etc" to "/etc");
 
     val pageName: String = this.entry.first

@@ -107,20 +107,29 @@ open class HTMLPage : HttpHandler {
 }
 
 /**
- * Template for the top level HTML pages.
+ * Template for the top level HTML pages. These should be on the root path (like "/etc")
+ * but more importantly will be displayed on the front page and top navigation bar.
  * @param page This [TopLevelPage] will define the template file location
+ * @param templateName An optional path to the template file (without .html) that will override the
+ * automatic method.
  * and the name of the current page.
  */
-class HTMLMainPage(val page: TopLevelPage) : HTMLPage() {
+class HTMLMainPage(val page: TopLevelPage, val templateName: String? = null) : HTMLPage() {
     override fun generateViewModel(request: Request): BasicViewModel {
         val viewModel: BasicViewModel = this.prepare(request)
-        viewModel.templatePath = this.page.pagePath
+        viewModel.templatePath = templateName ?: this.page.pagePath
         viewModel.name = this.page.pageName
 
         return viewModel;
     }
 }
 
+/**
+ * Template for any other HTML page not considered "top level". For those use [HTMLMainPage].
+ * @param templateName The path to the HTML template. Null by default and system searches by
+ * the url path. If it starts with a slash "/" it will be read as a full path. Without a slash
+ * it is read as a relative path to the parent url location. Do not append ".html" to the path.
+ */
 class HTMLSubPage(val templateName: String? = null) : HTMLPage() {
     override fun generateViewModel(request: Request): BasicViewModel {
         val requestPath = Path(request.uri.path)

@@ -27,13 +27,13 @@
                 <div>
                     <b>Origin:</b> <span th:text="${model.country}"></span><br>
                     <b>Genre:</b> <span th:text="${model.genre}"></span><br>
-                    <th:block th:if="${model.lastfmUrl} != null"><a th:href="${model.lastfmUrl}">last.fm</a></th:block>
+                    <a th:if="${model.lastfmUrl} != null" th:href="${model.lastfmUrl}" target="_blank">last.fm</a>
                 </div>
 
                 <p></p>
 
-                <div>
-                    <span th:text="${#lists.size(model.shows)} + ' shows, ' + ${model.headliningCount} + ' headlining'"></span>
+                <div th:with="showsCount=${model.shows.size()}">
+                    <span th:text="${showsCount} + ' show' + (${showsCount == 1} ? ', ' : 's, ') + ${model.headliningCount} + ' headlining'"></span>
                     <th:block th:if="${model.countryStatText} != null">
                         <br>
                         <span th:text="${model.countryStatText}"></span>
@@ -43,16 +43,14 @@
                 <hr>
 
                 <table class="table-alt-colors">
-                    <th:block th:each="show : ${model.shows}">
-                        <tr class="two-column-row">
-                            <td th:if="${show.isHeadliner}"><b th:text="${show.date}"></b></td>
-                            <td th:unless="${show.isHeadliner}" th:text="${show.date}"></td>
-                            <td>
-                                <th:block th:if="${show.title} != null"><b th:text="${show.title}"></b><br></th:block>
-                                <th:block th:text="${show.city} + ', ' + ${show.country}"></th:block>
-                            </td>
-                        </tr>
-                    </th:block>
+                    <tr class="two-column-row" th:each="show : ${model.shows}">
+                        <td th:if="${show.isHeadliner}"><b th:text="${show.date}"></b></td>
+                        <td th:unless="${show.isHeadliner}" th:text="${show.date}"></td>
+                        <td>
+                            <th:block th:if="${show.title} != null"><b th:text="${show.title}"></b><br></th:block>
+                            <th:block th:text="${show.city} + ', ' + ${show.country}"></th:block>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>

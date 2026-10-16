@@ -43,7 +43,7 @@ val staticHandler: HttpHandler = { request: Request ->
     }
 }
 
-val favicon: HttpHandler = { request: Request ->
+val favicon: HttpHandler = { _ ->
     try {
         Classpath(muteWarning = true).load("favicon.ico")?.let { url: URL ->
             Response(Status.OK)

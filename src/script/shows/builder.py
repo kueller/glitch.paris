@@ -82,14 +82,14 @@ def _build_show_performances(show: Show, show_performances_template: str) -> str
 
 
 def _build_venue_maps(venue: Venue, venue_maps_template: str) -> str:
-    return "\n" + venue_maps_template.format(link=venue.google_url)
+    return "\n" + venue_maps_template.format(link=venue.google_url, venueid=venue.uuid)
 
 
 def _build_venue_link(venue: Venue, venue_links_template: str) -> str:
     if not venue.url:
         return ""
 
-    return "\n" + venue_links_template.format(link=venue.url)
+    return "\n" + venue_links_template.format(link=venue.url, venueid=venue.uuid)
 
 
 def _build_shows_in_year(

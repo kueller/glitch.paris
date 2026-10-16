@@ -24,6 +24,8 @@ val webRouting: RoutingHttpHandler = routes(
 
         "/favicon.ico" bind GET to favicon,
 
+        "/pgp" bind GET to pgp,
+
         "/documents/{filename:[^\\/:*?\"<>|]+$}" bind GET to documentHandler,
 
         "/static/{path:.*}" bind GET to staticHandler,

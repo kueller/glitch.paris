@@ -257,33 +257,7 @@
                             <p>
                                 <label for="new-band-genre">Genre:</label><br>
                                 <select id="new-band-genre">
-                                    <option value="ROCK">Rock</option>
-                                    <option value="POP">Pop</option>
-                                    <option value="ELECTRONIC">Electronic</option>
-                                    <option value="METAL">Metal</option>
-                                    <option value="ALT">Alternative</option>
-                                    <option value="POST_ROCK">Post-Rock</option>
-                                    <option value="MAHOGANY">Heavy Mahogany</option>
-                                    <option value="FOLK">Folk</option>
-                                    <option value="INDIE">Indie</option>
-                                    <option value="SHOEGAZE">Shoegaze</option>
-                                    <option value="HIP_HOP">Hip Hop</option>
-                                    <option value="PUNK">Punk</option>
-                                    <option value="ORCHESTRAL">Orchestral</option>
-                                    <option value="LATIN">Latin</option>
-                                    <option value="MUSICAL">Musical</option>
-                                    <option value="PROG">Progressive Rock</option>
-                                    <option value="EXPERIMENTAL">Experimental</option>
-                                    <option value="DREAM_POP">Dream Pop</option>
-                                    <option value="HYPERPOP">Hyperpop</option>
-                                    <option value="GABBER">Gabber</option>
-                                    <option value="TECHNO">Techno</option>
-                                    <option value="HOUSE">House</option>
-                                    <option value="JAZZ">Jazz</option>
-                                    <option value="NOISE">Noise</option>
-                                    <option value="AMBIENT">Ambient</option>
-                                    <option value="TRIP_HOP">Trip-Hop</option>
-                                    <option value="RNB">RnB</option>
+                                    <option th:each="genre : ${model.genres}" th:value="${genre.name}" th:text="${genre.displayName}"></option>
                                 </select>
                             </p>
 

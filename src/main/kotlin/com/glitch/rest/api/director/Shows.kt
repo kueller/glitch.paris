@@ -7,7 +7,12 @@ import com.glitch.model.shows.Event
 import com.glitch.model.shows.Venue
 import com.glitch.rest.incomingJson
 import com.glitch.rest.outgoingJson
-import com.glitch.schema.api.director.*
+import com.glitch.schema.api.director.BandsSearchResponse
+import com.glitch.schema.api.director.NewBandRequest
+import com.glitch.schema.api.director.NewEventRequest
+import com.glitch.schema.api.director.NewVenueRequest
+import com.glitch.schema.api.director.ScheduleRequest
+import com.glitch.schema.api.director.VenueSearchResponse
 import com.glitch.util.UNICODE_REGEX
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime

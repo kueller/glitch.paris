@@ -7,9 +7,9 @@ data class NightModel(val images: List<NightImage>) : BasicViewModel()
 
 data class LoginRedirectModel(val returnUri: String) : BasicViewModel()
 
-val hello: HTMLPrepare = { request: Request -> BasicViewModel() }
+val hello: HTMLPrepare = { _: Request -> BasicViewModel() }
 
-val night: HTMLPrepare = { request: Request ->
+val night: HTMLPrepare = { _: Request ->
     val images = NightImage.getAll()
     NightModel(images)
 }

@@ -41,6 +41,17 @@ enum class Genre(val displayName: String) {
     AMBIENT("Ambient"),
     TRIP_HOP("Trip-Hop"),
     RNB("RnB"),
+    BLUES("Blues"),
+    INDUSTRIAL("Industrial"),
+    CHIPTUNE("Chiptune"),
+    POP_ROCK("Pop-Rock"),
+    COUNTRY("Country"),
+    REGGAE("Reggae"),
+    TRANCE("Trance"),
+    DUBSTEP("Dubstep"),
+    DISCO("Disco"),
+    SKA("Ska"),
+    FUNK("Funk"),
 }
 
 object BandTable : IntIdTable("band") {
